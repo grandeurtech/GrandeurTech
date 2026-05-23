@@ -6,7 +6,20 @@ import {
   Users,
 } from "lucide-react";
 
-
+import { motion, type Variants } from "framer-motion";
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 60 },
+  show: (i = 1) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.15,
+      duration: 0.8,
+      // use numeric easing to satisfy TypeScript types
+      ease: [0.42, 0, 0.58, 1],
+    },
+  }),
+};
 
 const cards = [
   {
