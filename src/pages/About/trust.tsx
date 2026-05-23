@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import {
   Award,
   ShieldCheck,
@@ -7,21 +6,7 @@ import {
   Users,
 } from "lucide-react";
 
-const fadeUp = {
-  hidden: {
-    opacity: 0,
-    y: 50,
-  },
-  show: (i: number = 1) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.15,
-      duration: 0.8,
-      ease: "easeOut",
-    },
-  }),
-};
+
 
 const cards = [
   {
