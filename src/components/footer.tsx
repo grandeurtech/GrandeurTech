@@ -1,32 +1,29 @@
 import React from "react";
 import MainLogo from "/mainlogo.png";
 import { IoLogoInstagram } from "react-icons/io";
-import { BsTwitterX } from "react-icons/bs";
+import { BsTwitterX, BsTelephone } from "react-icons/bs";
 import { MdOutlineFacebook } from "react-icons/md";
-import { BsTelephone } from "react-icons/bs";
 import { IoMailOutline } from "react-icons/io5";
 import { RiMapPinLine } from "react-icons/ri";
 import { LuClock } from "react-icons/lu";
-
 
 const Footer: React.FC = () => {
   return (
     <footer className="bg-deep-blue text-white">
       {/* MAIN FOOTER */}
       <div className="border-t border-white/10">
-        <div className="px-6 md:px-[8%] py-16">
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-14">
-
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-16">
+          {/* TOP GRID */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr] gap-14 items-start">
+            
             {/* LOGO SECTION */}
-            <div>
+            <div className="flex flex-col items-start">
               <img
                 src={MainLogo}
                 alt="Grandeur Tech"
-                className="w-52"
+                className="w-50 h-50 object-contain mb-4"
               />
-
-              <p className="text-gray-400 text-sm leading-7 mt-6 max-w-sm">
+              <p className="text-gray-400 text-sm leading-7 mt-4 max-w-sm">
                 We help businesses automate operations, optimize
                 processes, and leverage technology for sustainable
                 growth. Empowering the next generation of African
@@ -35,12 +32,11 @@ const Footer: React.FC = () => {
 
               {/* SOCIALS */}
               <div className="flex items-center gap-4 mt-8">
-
                 <a
                   href="https://www.instagram.com/springpethomes"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-blue-600 transition"
+                  className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-blue-600 transition-all duration-300"
                 >
                   <IoLogoInstagram size={16} />
                 </a>
@@ -49,7 +45,7 @@ const Footer: React.FC = () => {
                   href="https://x.com/springpethomes"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-blue-600 transition"
+                  className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-blue-600 transition-all duration-300"
                 >
                   <BsTwitterX size={16} />
                 </a>
@@ -58,22 +54,20 @@ const Footer: React.FC = () => {
                   href="https://www.facebook.com/SpringpetHomes/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-blue-600 transition"
+                  className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-blue-600 transition-all duration-300"
                 >
                   <MdOutlineFacebook size={16} />
                 </a>
-
               </div>
             </div>
 
             {/* QUICK LINKS */}
-            <div>
+            <div className="lg:pl-6">
               <h3 className="text-white font-semibold text-lg mb-6">
                 Quick Links
               </h3>
 
               <ul className="space-y-4 text-sm text-gray-400">
-
                 <li className="hover:text-white transition cursor-pointer">
                   Home
                 </li>
@@ -97,18 +91,16 @@ const Footer: React.FC = () => {
                 <li className="hover:text-white transition cursor-pointer">
                   Contact Us
                 </li>
-
               </ul>
             </div>
 
             {/* SERVICES */}
-            <div>
+            <div className="lg:pl-2">
               <h3 className="text-white font-semibold text-lg mb-6">
                 Our Services
               </h3>
 
               <ul className="space-y-4 text-sm text-gray-400">
-
                 <li className="hover:text-white transition cursor-pointer">
                   SME Automation Sprint
                 </li>
@@ -132,20 +124,18 @@ const Footer: React.FC = () => {
                 <li className="hover:text-white transition cursor-pointer">
                   Premium Printing Services
                 </li>
-
               </ul>
             </div>
 
             {/* CONTACT */}
-            <div>
+            <div className="lg:pl-4">
               <h3 className="text-white font-semibold text-lg mb-6">
                 Contact Us
               </h3>
 
               <ul className="space-y-5 text-sm text-gray-400">
-
                 <li className="flex items-center gap-3">
-                  <BsTelephone className="text-blue-500" />
+                  <BsTelephone className="text-blue-500 shrink-0" />
 
                   <a
                     href="tel:+2348131234567"
@@ -156,8 +146,7 @@ const Footer: React.FC = () => {
                 </li>
 
                 <li className="flex items-center gap-3">
-                  <IoMailOutline className="text-blue-500" />
-
+                  <IoMailOutline className="text-blue-500 shrink-0" />
 
                   <a
                     href="mailto:hello@granduertech.com.ng"
@@ -168,8 +157,7 @@ const Footer: React.FC = () => {
                 </li>
 
                 <li className="flex items-center gap-3">
-                  <RiMapPinLine className="text-blue-500" />
-
+                  <RiMapPinLine className="text-blue-500 shrink-0" />
 
                   <a
                     href="https://www.google.com/maps"
@@ -182,28 +170,24 @@ const Footer: React.FC = () => {
                 </li>
 
                 <li className="flex items-center gap-3">
-                  <LuClock className="text-blue-500" />
-
+                  <LuClock className="text-blue-500 shrink-0" />
 
                   <span>
                     Mon - Fri: 9:00 AM - 5:00 PM
                   </span>
                 </li>
-
               </ul>
             </div>
           </div>
 
           {/* BOTTOM BAR */}
           <div className="border-t border-white/10 mt-16 pt-8 flex flex-col md:flex-row items-center justify-between gap-5 text-sm text-gray-500">
-
             <p>
               © {new Date().getFullYear()} Grandeur Tech & IT Services.
               All Rights Reserved.
             </p>
 
             <div className="flex items-center gap-8">
-
               <span className="hover:text-white transition cursor-pointer">
                 Privacy Policy
               </span>
@@ -211,7 +195,6 @@ const Footer: React.FC = () => {
               <span className="hover:text-white transition cursor-pointer">
                 Terms & Conditions
               </span>
-
             </div>
           </div>
         </div>

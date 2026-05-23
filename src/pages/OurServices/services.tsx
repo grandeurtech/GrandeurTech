@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import aboutImg from "/aboutbg.png";
 import Printing from "./printing";
 import Space from "./space";
@@ -8,18 +7,17 @@ import Training from "./training";
 import BusinessTech from "./businessTech";
 import CTA from "./cta";
 
-const fadeUp = {
-  hidden: {
-    opacity: 0,
-    y: 50,
-  },
-  show: (i: number = 1) => ({
+import { motion, type Variants } from "framer-motion";
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 60 },
+  show: (i = 1) => ({
     opacity: 1,
     y: 0,
     transition: {
       delay: i * 0.15,
-      duration: 0.9,
-      ease: "easeOut",
+      duration: 0.8,
+      // use numeric easing to satisfy TypeScript types
+      ease: [0.42, 0, 0.58, 1],
     },
   }),
 };
@@ -28,7 +26,7 @@ export default function Hero() {
   return (
     <>
       <section
-        className="relative w-full min-h-[80vh] flex items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat pt-24"
+        className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat pt-24"
         style={{ backgroundImage: `url(${aboutImg})` }}
       >
         {/* BACKGROUND ANIMATION */}
@@ -47,10 +45,10 @@ export default function Hero() {
         />
 
         {/* DARK OVERLAY */}
-        <div className="absolute inset-0 bg-[#020617]/90" />
+        <div className="absolute inset-0 bg-[#020617]/98" />
 
         {/* BLUE GLOW OVERLAY */}
-        <div className="absolute inset-0 bg-linear-to-b from-[#155DFC]/10 via-[#020617]/40 to-[#020617]/95" />
+        <div className="absolute inset-0 bg-linear-to-b from-[#155DFC]/50 via-[#020617]/60 to-[#020617]/98" />
 
         {/* GRID EFFECT */}
         <div className="absolute inset-0 opacity-[0.03]">

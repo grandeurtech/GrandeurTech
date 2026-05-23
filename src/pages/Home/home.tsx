@@ -22,7 +22,7 @@ import Cta from "./cta";
 const HeroSection: React.FC = () => {
   return (
     <>
-    <section className="bg-plainground min-h-screen pt-20 overflow-hidden max-w-7xl mx-auto flex items-center">
+    <section className="bg-background min-h-screen pt-20 overflow-hidden max-w-7xl mx-auto flex items-center">
         {/* LEFT CONTENT */}
         <motion.div
           initial={{ opacity: 0, x: -80 }}

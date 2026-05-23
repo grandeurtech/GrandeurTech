@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { IoMdArrowRoundForward } from "react-icons/io";
 
-const fadeUp = {
+import { motion, type Variants } from "framer-motion";
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 60 },
   show: (i = 1) => ({
     opacity: 1,
@@ -11,14 +11,15 @@ const fadeUp = {
     transition: {
       delay: i * 0.15,
       duration: 0.8,
-      ease: "easeOut",
+      // use numeric easing to satisfy TypeScript types
+      ease: [0.42, 0, 0.58, 1],
     },
   }),
 };
 
 const BusinessPainSection = () => {
   return (
-    <section className="w-full bg-[#F7F8FC] py-24 overflow-hidden">
+    <section className="w-full bg-background py-24 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* IMAGE SIDE */}

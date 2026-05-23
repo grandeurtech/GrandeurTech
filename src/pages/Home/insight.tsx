@@ -1,20 +1,19 @@
 "use client";
 
-import { motion } from "framer-motion";
+
 import { IoMdArrowRoundForward, IoMdMail } from "react-icons/io";
 
-const fadeUp = {
-  hidden: {
-    opacity: 0,
-    y: 40,
-  },
-  show: (i: number = 1) => ({
+import { motion, type Variants } from "framer-motion";
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 60 },
+  show: (i = 1) => ({
     opacity: 1,
     y: 0,
     transition: {
-      delay: i * 0.12,
+      delay: i * 0.15,
       duration: 0.8,
-      ease: "easeOut",
+      // use numeric easing to satisfy TypeScript types
+      ease: [0.42, 0, 0.58, 1],
     },
   }),
 };
