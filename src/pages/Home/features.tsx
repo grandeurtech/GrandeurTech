@@ -11,7 +11,7 @@ const FeatureBar = () => {
 
       <div className="max-w-8xl mx-auto px-6 md:px-14 lg:px-24 py-10">
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
           {/* ITEM */}
           <div className="flex items-start gap-4">

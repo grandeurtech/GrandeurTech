@@ -10,7 +10,7 @@ import LogoTwo from "/fenergylogo.png";
 import LogoThree from "/onuwahublogo.png";
 import LogoFour from "/grillscapitollogo.png";
 import LogoFive from "/springpetlogo.png";
-import LogoSix from "/velstralogo.jpg";
+import LogoSix from "/velstralogo.png";
 
 import Feature from "./features";
 import Challenge from "./challenge";
@@ -22,206 +22,193 @@ import Cta from "./cta";
 const HeroSection: React.FC = () => {
   return (
     <>
-    <section className="bg-background min-h-screen pt-20 overflow-hidden max-w-7xl mx-auto flex items-center">
-        {/* LEFT CONTENT */}
-        <motion.div
-          initial={{ opacity: 0, x: -80 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="px-6 py-8 relative z-10"
-        >
+      <section className="bg-background overflow-hidden">
+        
+        {/* HERO */}
+        <div className="min-h-screen pt-7 max-w-7xl mx-auto flex items-center">
 
-          {/* TOP LABEL */}
+          {/* LEFT CONTENT */}
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="inline-flex items-center bg-[#E7EDF8] w-full rounded-full px-5 py-2 mt-15 mb-4"
+            initial={{ opacity: 0, x: -80 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="px-6 pt-8 relative z-10 flex-1"
           >
-            <span className="text-[10px] tracking-[2px] uppercase font-bold text-primary">
-              Empowering Businesses. Driving Growth.
-            </span>
-          </motion.div>
 
-          {/* HEADING */}
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="text-4xl md:text-5xl leading-tight tracking-tight text-[#020618]"
-          >
-            Run Your Business
-            <br />
+            {/* TOP LABEL */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="inline-flex items-center bg-[#E7EDF8] w-full rounded-full px-5 py-2 mt-15 mb-4"
+            >
+              <span className="text-[10px] tracking-[2px] uppercase font-bold text-primary">
+                Empowering Businesses. Driving Growth.
+              </span>
+            </motion.div>
 
-            <span className="text-primary font-extrabold">
-              with Clarity, Not
+            {/* HEADING */}
+            <motion.h1
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="text-4xl md:text-5xl leading-tight tracking-tight text-[#020618]"
+            >
+              Run Your Business
               <br />
-              Chaos.
-            </span>
-          </motion.h1>
 
-          {/* DESCRIPTION */}
-          <motion.p
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="text-text text-sm md:text-lg leading-relaxed mt-5 max-w-xl"
-          >
-            We help growing businesses automate operations,
-            reduce manual work, and build smart systems that
-            drive efficiency and sustainable growth.
-          </motion.p>
+              <span className="text-primary font-extrabold">
+                with Clarity, Not
+                <br />
+                Chaos.
+              </span>
+            </motion.h1>
 
-          {/* BUTTONS */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-            className="flex flex-row gap-4 mt-8"
-          >
+            {/* DESCRIPTION */}
+            <motion.p
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="text-text text-sm md:text-lg leading-relaxed mt-5 max-w-xl"
+            >
+              We help growing businesses automate operations,
+              reduce manual work, and build smart systems that
+              drive efficiency and sustainable growth.
+            </motion.p>
 
-            <button className="bg-primary text-sm hover:bg-primary-hover transition-all duration-300 text-white px-6 py-4 rounded-xl flex items-center justify-center gap-3 font-bold shadow-lg shadow-blue-500/20">
+            {/* BUTTONS */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+              className="flex flex-row gap-4 mt-8"
+            >
 
-              Get Started
+              <button className="bg-primary text-sm hover:bg-primary-hover transition-all duration-300 text-white px-6 py-4 rounded-xl flex items-center justify-center gap-3 font-bold shadow-lg shadow-blue-500/20">
 
-              <ArrowRight size={18} />
+                Get Started
 
-            </button>
+                <ArrowRight size={18} />
 
-            <button className="bg-white text-sm border border-black/10 hover:border-primary hover:text-primary transition-all duration-300 text-black px-6 py-4 rounded-xl font-bold">
-              Chat on WhatsApp
-            </button>
+              </button>
+
+              <button className="bg-white text-sm border border-black/10 hover:border-primary hover:text-primary transition-all duration-300 text-black px-6 py-4 rounded-xl font-bold">
+                Chat on WhatsApp
+              </button>
+
+            </motion.div>
 
           </motion.div>
 
-          {/* TRUSTED */}
+          {/* RIGHT IMAGE SECTION */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-            className="flex flex-wrap items-center gap-4 mt-6 "
+            initial={{ opacity: 0, x: 120 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1 }}
+            className="relative hidden lg:flex items-center justify-end flex-1"
           >
 
-            {/* LOGO CIRCLES */}
-            <div className="flex -space-x-3">
+            {/* IMAGE CONTAINER */}
+            <div className="relative w-175 h-135.7 overflow-hidden">
 
-              {/* LOGO 1 */}
-              <div className="w-12 h-12 rounded-full bg-background border-2 border-white shadow-md flex items-center justify-center overflow-hidden">
+              {/* IMAGE */}
+              <img
+                src={HeroImage}
+                alt="Business Dashboard"
+                className="w-full h-full object-cover"
+              />
 
-                <img
-                  src={LogoOne}
-                  alt="Company Logo"
-                  className="w-80 h-80 object-contain"
-                />
+              {/* DARK OVERLAY */}
+              <div className="absolute inset-0 bg-black/10" />
 
-              </div>
-
-              {/* LOGO 2 */}
-              <div className="w-12 h-12 rounded-full bg-background border-2 border-white shadow-md flex items-center justify-center overflow-hidden">
-
-                <img
-                  src={LogoTwo}
-                  alt="Company Logo"
-                  className="w-80 h-180 object-contain"
-                />
-
-              </div>
-
-              {/* LOGO 3 */}
-              <div className="w-12 h-12 rounded-full bg-background border-2 border-white shadow-md flex items-center justify-center overflow-hidden">
-
-                <img
-                  src={LogoThree}
-                  alt="Company Logo"
-                  className="w-80 h-80 object-contain"
-                />
-
-              </div>
-
-              {/* LOGO 4 */}
-              <div className="w-12 h-12 rounded-full bg-background border-2 border-white shadow-md flex items-center justify-center overflow-hidden">
-
-                <img
-                  src={LogoFour}
-                  alt="Company Logo"
-                  className="w-80 h-80 object-contain"
-                />
-
-              </div>
-              {/* LOGO 5 */}
-              <div className="w-12 h-12 rounded-full bg-background border-2 border-white shadow-md flex items-center justify-center overflow-hidden">
-
-                <img
-                  src={LogoFive}
-                  alt="Company Logo"
-                  className="w-80 h-80 object-contain"
-                />
-
-              </div>
-              {/* LOGO 6 */}
-              <div className="w-12 h-12 rounded-full bg-background border-2 border-white shadow-md flex items-center justify-center overflow-hidden">
-
-                <img
-                  src={LogoSix}
-                  alt="Company Logo"
-                  className="w-80 h-80 object-contain"
-                />
-
-              </div>
+              {/* BLUE SHAPE */}
+              <div
+                className="absolute bottom-0 right-0 w-full h-62.5 bg-primary"
+                style={{
+                  clipPath: "polygon(55% 100%, 100% 25%, 100% 100%)",
+                }}
+              />
 
             </div>
 
-            {/* TEXT */}
-            <p className="text-sm text-text">
-              Trusted by{" "}
-              <span className="font-bold text-[#111827]">
-                500+ businesses
-              </span>{" "}
-              across Nigeria
-            </p>
-
           </motion.div>
-        </motion.div>
 
-        {/* RIGHT IMAGE SECTION */}
+        </div>
+
+        {/* TRUSTED SECTION */}
         <motion.div
-          initial={{ opacity: 0, x: 120 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1 }}
-          className="relative bg-plainground hidden lg:flex items-center justify-end"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+          className="border-t border-black/5 py-8"
         >
 
-          {/* IMAGE CONTAINER */}
-          <div className="relative w-175 h-135.7 overflow-hidden">
+          {/* TEXT */}
+          <p className="text-xl md:text-2xl text-center text-text mb-8">
+            Trusted by{" "}
+            <span className="font-bold text-[#111827] text-2xl md:text-3xl">
+              500+ businesses
+            </span>{" "}
+            across Nigeria
+          </p>
 
-            {/* IMAGE */}
-            <img
-              src={HeroImage}
-              alt="Business Dashboard"
-              className="w-full h-full bg-white object-cover"
-            />
+          {/* MOVING LOGOS */}
+          <div className="relative overflow-hidden">
 
-            {/* DARK OVERLAY */}
-            <div className="absolute inset-0 bg-black/10" />
-
-            {/* BLUE SHAPE */}
-            <div
-              className="absolute bottom-0 right-0 w-full h-62.5 bg-primary"
-              style={{
-                clipPath: "polygon(55% 100%, 100% 25%, 100% 100%)",
+            <motion.div
+              animate={{ x: ["0%", "-50%"] }}
+              transition={{
+                repeat: Infinity,
+                duration: 22,
+                ease: "linear",
               }}
-            />
+              className="flex items-center gap-6 w-max"
+            >
+
+              {[
+                LogoOne,
+                LogoTwo,
+                LogoThree,
+                LogoFour,
+                LogoFive,
+                LogoSix,
+                LogoOne,
+                LogoTwo,
+                LogoThree,
+                LogoFour,
+                LogoFive,
+                LogoSix,
+              ].map((logo, index) => (
+
+                <div
+                  key={index}
+                  className="w-45 h-25 bg-white border border-black/10 rounded-2xl flex items-center justify-center overflow-hidden shrink-0 px-6 shadow-sm"
+                >
+
+                  <img
+                    src={logo}
+                    alt="Company Logo"
+                    className="w-full h-full object-contain"
+                  />
+
+                </div>
+
+              ))}
+
+            </motion.div>
 
           </div>
-        </motion.div>
-    </section>
 
-    <Feature />
-    <Challenge />
-    <Solution />
-    <Works />
-    <Insight />
-    <Cta />
+        </motion.div>
+
+      </section>
+
+      <Feature />
+      <Challenge />
+      <Solution />
+      <Works />
+      <Insight />
+      <Cta />
     </>
   );
 };
