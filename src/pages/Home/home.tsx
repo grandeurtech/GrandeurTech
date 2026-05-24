@@ -25,7 +25,7 @@ const HeroSection: React.FC = () => {
       <section className="bg-background overflow-hidden">
         
         {/* HERO */}
-        <div className="min-h-screen pt-7 max-w-7xl mx-auto flex items-center">
+        <div className="min-h-screen pt-12 max-w-7xl mx-auto flex items-center">
 
           {/* LEFT CONTENT */}
           <motion.div
