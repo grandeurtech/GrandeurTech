@@ -23,7 +23,7 @@ export default function Navbar() {
     if (item === "Services") return location.pathname === "/services";
     if (item === "Insights") return location.pathname === "/insights";
     if (item === "Co-Working Space")
-      return location.pathname === "/partnerships";
+      return location.pathname === "/co-working-space";
     if (item === "Contact") return location.pathname === "/contact";
 
     return false;
@@ -60,7 +60,7 @@ export default function Navbar() {
                     to={
                       item === "Home"
                         ? "/"
-                        : `/${item.toLowerCase()}`
+                        : `/${item.toLowerCase().replace(/\s+/g, "-")}`
                     }
                   >
                     {item}
@@ -78,7 +78,7 @@ export default function Navbar() {
             </ul>
 
             {/* CONTACT BUTTON */}
-            <NavLink to="/partnerships">
+            <NavLink to="/contact">
               <motion.button
                 whileHover={{
                   scale: 1.03,
@@ -182,7 +182,7 @@ export default function Navbar() {
 
                 {/* MOBILE BUTTON */}
                 <NavLink
-                  to="/partnerships"
+                  to="/contact"
                   onClick={() => setIsOpen(false)}
                   className="w-full"
                 >
