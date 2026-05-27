@@ -4,7 +4,7 @@ import Productivity from "./productivity";
 const HeroSection = () => {
   return (
     <>
-    <section className="relative w-full min-h-screen items-center justify-center bg-cover bg-center bg-no-repeat pt-24 overflow-hidden">
+    <section className="relative w-full min-h-screen flex items-center justify-start bg-cover bg-center bg-no-repeat pt-24 overflow-hidden">
       {/* Background Image */}
       <img
         src="/workingspacebg.jpg"

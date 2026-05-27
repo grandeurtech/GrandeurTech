@@ -25,7 +25,7 @@ const fadeUp: Variants = {
 
 const ContactShowcase: React.FC = () => {
   return (
-    <section className="bg-background py-28 overflow-hidden">
+    <section className="bg-background py-20 overflow-hidden">
 
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
 
@@ -66,13 +66,13 @@ const ContactShowcase: React.FC = () => {
             whileHover={{
               y: -10,
             }}
-            className="overflow-hidden rounded-[6px] mt-[-12px]"
+            className="overflow-hidden mb-10"
           >
 
             <img
               src={OfficeTwo}
               alt="Office Team"
-              className="w-full h-[620px] object-cover hover:scale-105 transition-all duration-700"
+              className="w-full h-[540px] object-cover hover:scale-105 transition-all duration-700"
             />
 
           </motion.div>

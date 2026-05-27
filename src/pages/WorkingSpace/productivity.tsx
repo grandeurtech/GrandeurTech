@@ -72,20 +72,20 @@ const ProductivitySection = () => {
                 className="flex items-start gap-5"
               >
                 {/* Icon */}
-                <div className="w-14 h-14 rounded-2xl bg-[#F8FAFC] flex items-center justify-center shrink-0">
+                <div className="w-14 h-14 rounded-2xl bg-[#F8FAFC] flex shadow-md items-center justify-center shrink-0">
                   <Icon
                     size={24}
-                    className="text-[#2563EB]"
+                    className="text-[#2563EB] font-bold"
                   />
                 </div>
 
                 {/* Content */}
                 <div>
-                  <h3 className="text-lg font-semibold text-[#0F172A]">
+                  <h3 className="text-lg font-bold text-[#0F172A]">
                     {feature.title}
                   </h3>
 
-                  <p className="mt-2 text-sm leading-6 text-gray-500">
+                  <p className="mt-2 text-sm font-normal leading-6 text-text">
                     {feature.description}
                   </p>
                 </div>
