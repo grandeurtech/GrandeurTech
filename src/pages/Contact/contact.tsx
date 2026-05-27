@@ -9,7 +9,7 @@ const fadeUp: Variants = {
 
   show: (i = 1) => ({
     opacity: 1,
-    y: 0,
+    y: 0, 
 
     transition: {
       delay: i * 0.15,
