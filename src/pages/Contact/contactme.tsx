@@ -9,10 +9,7 @@ import {
   Send,
   MessageCircle,
 } from "lucide-react";
-import {
-  CheckCircle2,
-  XCircle,
-} from "lucide-react";
+import { CheckCircle2, XCircle } from "lucide-react";
 
 import emailjs from "@emailjs/browser";
 
