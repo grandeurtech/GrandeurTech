@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { motion, type Variants } from "framer-motion";
+import React, { useRef, useState } from "react";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import {
   Mail,
   Phone,
@@ -9,32 +9,86 @@ import {
   Send,
   MessageCircle,
 } from "lucide-react";
+import {
+  CheckCircle2,
+  XCircle,
+} from "lucide-react";
+
+import emailjs from "@emailjs/browser";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 60 },
+
   show: (i = 1) => ({
     opacity: 1,
     y: 0,
+
     transition: {
       delay: i * 0.15,
       duration: 0.8,
-      // use numeric easing to satisfy TypeScript types
       ease: [0.42, 0, 0.58, 1],
     },
   }),
 };
 
 const ContactSection: React.FC = () => {
+  const formRef = useRef<HTMLFormElement | null>(null);
+
+  const [loading, setLoading] = useState(false);
+
+  const [popup, setPopup] = useState<{
+  type: "success" | "error";
+  message: string;
+} | null>(null);
+
+const sendEmail = async (
+  e: React.FormEvent<HTMLFormElement>
+) => {
+  e.preventDefault();
+
+  if (!formRef.current) return;
+
+  try {
+    setLoading(true);
+
+    await emailjs.sendForm(
+      "service_ugfuwop",
+      "template_7lskz7n",
+      formRef.current,
+      "0KzjqIbli3YN_byuB"
+    );
+
+    setPopup({
+      type: "success",
+      message: "Message delivered successfully!",
+    });
+
+    formRef.current.reset();
+
+  } catch (error) {
+    console.error(error);
+
+    setPopup({
+      type: "error",
+      message:
+        "Something went wrong. Please try again.",
+    });
+
+  } finally {
+    setLoading(false);
+
+    setTimeout(() => {
+      setPopup(null);
+    }, 4000);
+  }
+};
+
   return (
-    <section className="bg-background py-28 overflow-hidden">
+    <section className="bg-plainground py-20 overflow-hidden">
 
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
 
-        <div className="grid lg:grid-cols-[0.9fr_1.4fr] gap-10 items-start">
-
-          {/* ==================================== */}
-          {/* LEFT SIDE */}
-          {/* ==================================== */}
+        <div className="grid md:grid-cols-[0.9fr_1.4fr] gap-10 items-start">
 
           <motion.div
             variants={fadeUp}
@@ -45,7 +99,7 @@ const ContactSection: React.FC = () => {
           >
 
             {/* TITLE */}
-            <h2 className="text-3xl md:text-4xl font-black text-primary-foreground">
+            <h2 className="text-xl md:text-3xl font-bold text-[#020618]">
               Contact Information
             </h2>
 
@@ -75,12 +129,12 @@ const ContactSection: React.FC = () => {
                 </div>
 
                 <div>
-                  <p className="uppercase tracking-[0.12em] text-[11px] font-bold text-text">
+                  <p className="uppercase tracking-[0.12em] text-xs font-bold text-primary">
                     Email Us
                   </p>
 
-                  <h3 className="text-xl font-black text-primary-foreground mt-2">
-                    hello@grandeurtech.com.ng
+                  <h3 className="text-lg font-bold text-primary-foreground mt-2">
+                    grandeurtechofficial@gmail.com
                   </h3>
                 </div>
 
@@ -109,15 +163,14 @@ const ContactSection: React.FC = () => {
                 </div>
 
                 <div>
-                  <p className="uppercase tracking-[0.12em] text-[11px] font-bold text-text">
+                  <p className="uppercase tracking-[0.12em] text-xs font-bold text-primary">
                     Call Us
                   </p>
 
-                  <h3 className="text-xl font-black text-primary-foreground mt-2">
+                  <h3 className="text-lg font-bold text-primary-foreground mt-2">
                     +234 813 123 4567
                   </h3>
                 </div>
-
               </motion.div>
 
               {/* ADDRESS */}
@@ -143,11 +196,11 @@ const ContactSection: React.FC = () => {
                 </div>
 
                 <div>
-                  <p className="uppercase tracking-[0.12em] text-[11px] font-bold text-text">
+                  <p className="uppercase tracking-[0.12em] text-xs font-bold text-primary">
                     Visit Us
                   </p>
 
-                  <h3 className="text-xl leading-8 font-black text-primary-foreground mt-2">
+                  <h3 className="text-lg font-bold text-primary-foreground mt-2">
                     123 Corporate Avenue,
                     Victoria Island,
                     Lagos, Nigeria
@@ -168,7 +221,7 @@ const ContactSection: React.FC = () => {
               whileHover={{
                 y: -8,
               }}
-              className="mt-14 bg-[#061234] rounded-[28px] p-8 relative overflow-hidden"
+              className="mt-14 bg-[#061234] rounded-2xl p-8 relative overflow-hidden"
             >
 
               {/* GLOW */}
@@ -188,7 +241,6 @@ const ContactSection: React.FC = () => {
                   Mon–Fri 9am–5pm.
                 </p>
 
-                {/* BUTTON */}
                 <motion.button
                   whileHover={{
                     scale: 1.03,
@@ -211,10 +263,7 @@ const ContactSection: React.FC = () => {
 
           </motion.div>
 
-          {/* ==================================== */}
           {/* RIGHT SIDE */}
-          {/* ==================================== */}
-
           <motion.div
             initial={{
               opacity: 0,
@@ -228,43 +277,51 @@ const ContactSection: React.FC = () => {
               duration: 0.9,
             }}
             viewport={{ once: true }}
-            className="bg-white border border-black/5 rounded-[32px] p-8 md:p-12 shadow-[0_30px_100px_rgba(0,0,0,0.06)]"
+            className="bg-white border border-black/5 rounded-3xl p-8 md:p-12 shadow-[0_30px_100px_rgba(0,0,0,0.06)]"
           >
 
             {/* FORM TITLE */}
-            <h3 className="text-4xl font-black text-primary-foreground">
+            <h3 className="text-2xl font-bold text-[#020618]">
               Send us a Message
             </h3>
 
             {/* FORM */}
-            <form className="mt-10">
+            <form
+              ref={formRef}
+              onSubmit={sendEmail}
+              className="mt-10"
+            >
 
               {/* TOP GRID */}
               <div className="grid md:grid-cols-2 gap-6">
 
                 {/* FULL NAME */}
                 <div>
-                  <label className="block text-sm font-bold text-primary-foreground mb-3">
+                  <label className="block text-xs font-bold text-[#314158] mb-3">
                     Full Name
                   </label>
 
                   <input
                     type="text"
+                    name="user_name"
                     placeholder="John Doe"
-                    className="w-full h-16 rounded-2xl bg-[#F5F7FB] border border-transparent focus:border-primary px-5 outline-none transition-all duration-300"
+                    required
+                    className="w-full h-16 rounded-2xl bg-[#F8FAFC] border border-transparent focus:border-primary shadow-sm px-5 outline-none transition-all duration-300"
                   />
                 </div>
 
                 {/* EMAIL */}
                 <div>
-                  <label className="block text-sm font-bold text-primary-foreground mb-3">
+                  <label className="block text-sm font-bold text-[#314158] mb-3">
                     Email Address
                   </label>
 
                   <input
                     type="email"
+                    name="user_email"
                     placeholder="john@example.com"
-                    className="w-full h-16 rounded-2xl bg-[#F5F7FB] border border-transparent focus:border-primary px-5 outline-none transition-all duration-300"
+                    required
+                    className="w-full h-16 rounded-2xl bg-[#F8FAFC] border border-transparent focus:border-primary shadow-sm px-5 outline-none transition-all duration-300"
                   />
                 </div>
 
@@ -272,31 +329,36 @@ const ContactSection: React.FC = () => {
 
               {/* SUBJECT */}
               <div className="mt-6">
-                <label className="block text-sm font-bold text-primary-foreground mb-3">
+                <label className="block text-sm font-bold text-[#314158] mb-3">
                   Subject
                 </label>
 
                 <input
                   type="text"
+                  name="subject"
                   placeholder="General Inquiry"
-                  className="w-full h-16 rounded-2xl bg-[#F5F7FB] border border-transparent focus:border-primary px-5 outline-none transition-all duration-300"
+                  required
+                  className="w-full h-16 rounded-2xl bg-[#F8FAFC] border border-transparent focus:border-primary shadow-sm px-5 outline-none transition-all duration-300"
                 />
               </div>
 
               {/* MESSAGE */}
               <div className="mt-6">
-                <label className="block text-sm font-bold text-primary-foreground mb-3">
+                <label className="block text-sm font-bold text-[#314158] mb-3">
                   Message
                 </label>
 
                 <textarea
+                  name="message"
                   placeholder="How can we help you?"
-                  className="w-full h-44 rounded-2xl bg-[#F5F7FB] border border-transparent focus:border-primary px-5 py-5 outline-none resize-none transition-all duration-300"
+                  required
+                  className="w-full h-44 rounded-2xl bg-[#F8FAFC] border border-transparent focus:border-primary shadow-sm px-5 py-4 outline-none resize-none transition-all duration-300"
                 />
               </div>
 
               {/* BUTTON */}
               <motion.button
+                type="submit"
                 whileHover={{
                   scale: 1.01,
                 }}
@@ -306,7 +368,7 @@ const ContactSection: React.FC = () => {
                 className="mt-8 w-full h-16 rounded-2xl bg-primary hover:bg-primary-hover transition-all duration-300 text-white font-bold flex items-center justify-center gap-3 shadow-[0_15px_40px_rgba(49,69,156,0.25)]"
               >
 
-                Send Message
+                {loading ? "Sending..." : "Send Message"}
 
                 <Send size={18} />
 
@@ -318,6 +380,70 @@ const ContactSection: React.FC = () => {
 
         </div>
       </div>
+      {/* POPUP NOTIFICATION */}
+<AnimatePresence>
+  {popup && (
+    <motion.div
+      initial={{
+        opacity: 0,
+        y: -40,
+        scale: 0.9,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+        scale: 1,
+      }}
+      exit={{
+        opacity: 0,
+        y: -40,
+        scale: 0.9,
+      }}
+      transition={{
+        duration: 0.35,
+      }}
+      className="fixed top-8 right-8 z-[999] bg-white border border-black/10 shadow-[0_20px_60px_rgba(0,0,0,0.12)] rounded-2xl px-6 py-5 min-w-[320px]"
+    >
+      <div className="flex items-start gap-4">
+
+        {/* ICON */}
+        <div
+          className={`w-12 h-12 rounded-full flex items-center justify-center ${
+            popup.type === "success"
+              ? "bg-green-100"
+              : "bg-red-100"
+          }`}
+        >
+          {popup.type === "success" ? (
+            <CheckCircle2
+              size={24}
+              className="text-green-600"
+            />
+          ) : (
+            <XCircle
+              size={24}
+              className="text-red-600"
+            />
+          )}
+        </div>
+
+        {/* TEXT */}
+        <div>
+          <h4 className="text-lg font-bold text-primary-foreground">
+            {popup.type === "success"
+              ? "Message Sent"
+              : "Delivery Failed"}
+          </h4>
+
+          <p className="text-sm text-text mt-1 leading-6">
+            {popup.message}
+          </p>
+        </div>
+
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
     </section>
   );
 };

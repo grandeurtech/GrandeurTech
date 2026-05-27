@@ -22,7 +22,7 @@ const fadeUp: Variants = {
 const ContactHero = () => {
   return (
     <>
-      <section className="relative w-full min-h-screen flex items-center justify-start overflow-hidden">
+      <section className="relative w-full min-h-screen flex items-center justify-start bg-cover bg-center bg-no-repeat pt-24 overflow-hidden">
 
         {/* Background Image */}
         <motion.img
@@ -42,7 +42,7 @@ const ContactHero = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
-          className="absolute inset-0 bg-[#050B1A]/80"
+          className="absolute inset-0 bg-[#31459C]/60"
         />
 
         {/* Animated Glow */}
@@ -95,7 +95,7 @@ const ContactHero = () => {
 
         {/* Content */}
         <div className="relative z-10 w-full px-6 md:px-14 lg:px-24 py-20">
-          <div className="max-w-4xl min-h-[70vh] flex flex-col justify-center text-white">
+          <div className="max-w-4xl flex flex-col justify-center text-white">
 
             {/* Small Heading */}
             <motion.p
@@ -103,7 +103,7 @@ const ContactHero = () => {
               initial="hidden"
               animate="show"
               custom={0.2}
-              className="uppercase tracking-[0.3em] text-[#3B82F6] text-sm font-semibold"
+              className="uppercase tracking-[0.3em] text-white text-sm font-bold"
             >
               Get In Touch
             </motion.p>
@@ -114,12 +114,12 @@ const ContactHero = () => {
               initial="hidden"
               animate="show"
               custom={0.4}
-              className="mt-5 text-5xl md:text-7xl font-extrabold leading-tight"
+              className="mt-5 text-2xl md:text-5xl font-black leading-none"
             >
               Let’s Build Something
               <br />
 
-              <span className="text-[#3B82F6]">
+              <span className="font-black">
                 Great Together
               </span>
             </motion.h1>
@@ -140,7 +140,7 @@ const ContactHero = () => {
         </div>
 
         {/* Bottom Fade */}
-        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#020618]/90 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-[#020618]/90 to-transparent" />
       </section>
 
       <ContactMe />
