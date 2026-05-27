@@ -42,7 +42,7 @@ const scaleIn: Variants = {
 
 const ContactShowcase: React.FC = () => {
   return (
-    <section className="bg-background py-28 overflow-hidden">
+    <section className="bg-plainground py-20 overflow-hidden">
 
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         {/* ========================================= */}
@@ -55,11 +55,11 @@ const ContactShowcase: React.FC = () => {
           whileInView="show"
           viewport={{ once: true }}
           custom={1}
-          className="mt-28 rounded-[36px] overflow-hidden grid lg:grid-cols-2 shadow-[0_30px_100px_rgba(0,0,0,0.08)]"
+          className="rounded-t-4xl rounded-b-none md:rounded-l-4xl md:rounded-r-none overflow-hidden grid lg:grid-cols-2 shadow-[0_30px_100px_rgba(0,0,0,0.08)]"
         >
 
           {/* LEFT CONTENT */}
-          <div className="bg-[#020B2D] px-10 md:px-14 py-16 relative overflow-hidden">
+          <div className="bg-deep-blue px-10 md:px-14 py-14 relative overflow-hidden">
 
             {/* GLOW */}
             <div className="absolute top-[-120px] left-[-120px] w-[250px] h-[250px] bg-primary/20 rounded-full blur-3xl" />
@@ -71,7 +71,7 @@ const ContactShowcase: React.FC = () => {
               whileInView="show"
               viewport={{ once: true }}
               custom={1}
-              className="uppercase tracking-[0.25em] text-[11px] font-bold text-[#4B72FF] relative z-10"
+              className="uppercase tracking-[0.25em] text-base font-bold text-[#51A2FF] relative z-10"
             >
               Visit Us
             </motion.p>
@@ -83,7 +83,7 @@ const ContactShowcase: React.FC = () => {
               whileInView="show"
               viewport={{ once: true }}
               custom={2}
-              className="text-5xl md:text-6xl leading-[1] tracking-tight font-black text-white mt-6 relative z-10"
+              className="text-2xl md:text-3xl leading-[1] tracking-tight font-black text-white mt-6 relative z-10"
             >
               Prime Location
               <br />
@@ -100,11 +100,11 @@ const ContactShowcase: React.FC = () => {
               className="flex items-start gap-4 mt-12 relative z-10"
             >
 
-              <div className="w-11 h-11 rounded-full border border-primary/40 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full flex items-center justify-center">
 
                 <MapPin
-                  size={18}
-                  className="text-primary"
+                  size={26}
+                  className="text-[#2B7FFF] text-3xl"
                 />
 
               </div>
@@ -114,7 +114,7 @@ const ContactShowcase: React.FC = () => {
                   Main Hub
                 </h4>
 
-                <p className="text-white/60 leading-7 mt-1">
+                <p className="text-white/60 text-base leading-6 mt-1">
                   123 Corporate Avenue,
                   Victoria Island,
                   Lagos, Nigeria
@@ -132,11 +132,11 @@ const ContactShowcase: React.FC = () => {
               className="flex items-start gap-4 mt-10 relative z-10"
             >
 
-              <div className="w-11 h-11 rounded-full border border-primary/40 flex items-center justify-center">
+              <div className="w-11 h-11 rounded-full flex items-center justify-center">
 
                 <Clock3
-                  size={18}
-                  className="text-primary"
+                    size={26}
+                    className="text-[#2B7FFF]"
                 />
 
               </div>
@@ -146,7 +146,7 @@ const ContactShowcase: React.FC = () => {
                   Business Hours
                 </h4>
 
-                <p className="text-white/60 leading-7 mt-1">
+                <p className="text-white/60 text-base leading-7 mt-1">
                   Mon - Fri: 8:00 AM - 8:00 PM
                   <br />
                   Sat: 10:00 AM - 4:00 PM
@@ -167,18 +167,18 @@ const ContactShowcase: React.FC = () => {
               whileTap={{
                 scale: 0.96,
               }}
-              className="mt-14 bg-white hover:bg-primary hover:text-white transition-all duration-300 text-primary-foreground px-8 py-4 rounded-xl font-bold flex items-center gap-3 relative z-10"
+              className="mt-8 bg-white hover:bg-primary hover:text-white transition-all duration-300 text-deep-blue px-6 text-xs py-4 rounded-xl font-black flex items-center gap-3 relative z-10"
             >
 
               Get Directions
 
-              <ArrowRight size={18} />
+              <ArrowRight size={14}  className="font-black"/>
 
             </motion.button>
           </div>
 
           {/* RIGHT MAP */}
-          <div className="relative min-h-[500px] overflow-hidden">
+          <div className="relative overflow-hidden">
 
             {/* MAP IMAGE */}
             <img
@@ -188,7 +188,7 @@ const ContactShowcase: React.FC = () => {
             />
 
             {/* DARK OVERLAY */}
-            <div className="absolute inset-0 bg-[#07122F]/60" />
+            <div className="absolute inset-0 bg-[#1D293D]/70" />
 
             {/* LOCATION PIN */}
             <motion.div
