@@ -3,6 +3,7 @@
 import { IoMdArrowRoundForward } from "react-icons/io";
 
 import { motion, type Variants } from "framer-motion";
+import { NavLink } from "react-router-dom";
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 60 },
   show: (i = 1) => ({
@@ -140,17 +141,17 @@ const BusinessPainSection = () => {
               ))}
             </ul>
 
-            <motion.button
-              whileHover={{
-                scale: 1.03,
-              }}
-              whileTap={{
+            <NavLink to="/contact">
+              <motion.button
+                whileHover={{
+                  scale: 1.03,
+                }}
+                whileTap={{
                 scale: 0.98,
               }}
               className="mt-6 bg-primary text-white py-4 px-8 rounded-2xl font-semibold flex items-center gap-4 shadow-xl">
               Let's Fix That
-
-              <motion.div
+              <motion.span
                 animate={{ x: [0, 5, 0] }}
                 transition={{
                   repeat: Infinity,
@@ -158,8 +159,9 @@ const BusinessPainSection = () => {
                 }}
               >
                 <IoMdArrowRoundForward />
-              </motion.div>
+              </motion.span>
             </motion.button>
+</NavLink>
           </motion.div>
         </div>
       </div>

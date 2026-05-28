@@ -6,6 +6,7 @@ import { LuBookOpen } from "react-icons/lu";
 import { CgCoffee } from "react-icons/cg";
 import { LuPrinter } from "react-icons/lu";
 import { PiSlidersHorizontal } from "react-icons/pi"; 
+import { NavLink } from "react-router-dom";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 60 },
@@ -179,13 +180,14 @@ const SolutionsSection = () => {
                   {service.desc}
                 </p>
 
-                <motion.div
-                  whileHover={{ x: 5 }}
-                  className="mt-8 flex text-xs items-center gap-3 text-[#4052B5] font-semibold cursor-pointer"
-                >
-                  Learn More
+                <NavLink to="/services">
+                  <motion.button
+                    whileHover={{ x: 5 }}
+                    className="mt-8 flex text-xs items-center gap-3 text-[#4052B5] font-semibold cursor-pointer"
+                  >
+                    Learn More
 
-                  <motion.div
+                  <motion.span
                     animate={{
                       x: [0, 4, 0],
                     }}
@@ -195,8 +197,9 @@ const SolutionsSection = () => {
                     }}
                   >
                     <IoMdArrowRoundForward />
-                  </motion.div>
-                </motion.div>
+                  </motion.span>
+                </motion.button>
+                </NavLink>
               </motion.div>
             ))}
           </div>

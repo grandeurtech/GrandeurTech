@@ -1,6 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+// import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+
 
 import HeroImage from "/homebg.png";
 
@@ -83,14 +86,12 @@ const HeroSection: React.FC = () => {
               transition={{ delay: 0.7 }}
               className="flex flex-row gap-4 mt-8"
             >
-
+              <NavLink to="/contact">
               <button className="bg-primary text-sm hover:bg-primary-hover transition-all duration-300 text-white px-6 py-4 rounded-xl flex items-center justify-center gap-3 font-bold shadow-lg shadow-blue-500/20">
-
                 Get Started
-
                 <ArrowRight size={18} />
-
               </button>
+              </NavLink>
 
               <button className="bg-white text-sm border border-black/10 hover:border-primary hover:text-primary transition-all duration-300 text-black px-6 py-4 rounded-xl font-bold">
                 Chat on WhatsApp
@@ -140,7 +141,7 @@ const HeroSection: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
-          className="border-t border-black/5 py-8"
+          className="bg-plainground border-t border-black/5 py-8"
         >
 
           {/* TEXT */}

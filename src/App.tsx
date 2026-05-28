@@ -4,6 +4,7 @@ import Footer from "./components/footer";
 import ScrollToTop from "./components/scrollToTop";
 import Home from "./pages/Home/home"
 import About from "./pages/About/about"
+import Team from "./pages/About/about"
 import Services from "./pages/OurServices/services";
 import Insights from "./pages/Insights/insights";
 import WorkingSpace from "./pages/WorkingSpace/work";
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/team" element={<Team />} />
         <Route path="/services" element={<Services />} />
         <Route path="/insights" element={<Insights />} />
         <Route path="/co-working-space" element={<WorkingSpace />} />

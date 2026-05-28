@@ -1,11 +1,17 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Logo from "/logo.png";
 import { NavLink, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { IoMdArrowForward } from "react-icons/io";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+
+  // ABOUT DROPDOWN STATES
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
+
+  const aboutRef = useRef<HTMLLIElement | null>(null);
 
   const location = useLocation();
 
@@ -17,14 +23,41 @@ export default function Navbar() {
     "Co-Working Space",
   ];
 
+  // CLOSE DROPDOWN WHEN CLICKING OUTSIDE
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        aboutRef.current &&
+        !aboutRef.current.contains(event.target as Node)
+      ) {
+        setAboutOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const isAboutRoute =
+    location.pathname === "/about" ||
+    location.pathname === "/team";
+
   const isActiveItem = (item: string) => {
     if (item === "Home") return location.pathname === "/";
-    if (item === "About") return location.pathname === "/about";
+    if (item === "About") return isAboutRoute;
     if (item === "Services") return location.pathname === "/services";
     if (item === "Insights") return location.pathname === "/insights";
-    if (item === "Co-Working Space")
+
+    if (item === "Co-Working Space") {
       return location.pathname === "/co-working-space";
-    if (item === "Contact") return location.pathname === "/contact";
+    }
+
+    if (item === "Contact") {
+      return location.pathname === "/contact";
+    }
 
     return false;
   };
@@ -50,21 +83,70 @@ export default function Navbar() {
               {menuItems.map((item, index) => (
                 <li
                   key={index}
+                  ref={item === "About" ? aboutRef : null}
                   className={`cursor-pointer relative transition-all duration-300 ${
                     isActiveItem(item)
                       ? "text-primary"
                       : "text-deep-blue hover:text-black"
                   }`}
                 >
-                  <NavLink
-                    to={
-                      item === "Home"
-                        ? "/"
-                        : `/${item.toLowerCase().replace(/\s+/g, "-")}`
-                    }
-                  >
-                    {item}
-                  </NavLink>
+                  {item === "About" ? (
+                    <div className="relative">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setAboutOpen((prev) => !prev);
+                        }}
+                        className="flex items-center gap-1"
+                      >
+                        About
+                        <span className="text-[10px]">▼</span>
+                      </button>
+
+                      <AnimatePresence>
+                        {aboutOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 12 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 12 }}
+                            transition={{ duration: 0.2 }}
+                            className="absolute top-[180%] left-1/2 -translate-x-1/2 w-44 bg-white rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.18)] p-5 z-50"
+                          >
+                            <div className="flex flex-col gap-4 text-deep-blue text-sm">
+                              <NavLink
+                                to="/about"
+                                onClick={() => setAboutOpen(false)}
+                                className="hover:text-primary transition"
+                              >
+                                About Us
+                              </NavLink>
+
+                              <NavLink
+                                to="/team"
+                                onClick={() => setAboutOpen(false)}
+                                className="hover:text-primary transition"
+                              >
+                                Our Team
+                              </NavLink>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : (
+                    <NavLink
+                      to={
+                        item === "Home"
+                          ? "/"
+                          : `/${item
+                              .toLowerCase()
+                              .replace(/\s+/g, "-")}`
+                      }
+                    >
+                      {item}
+                    </NavLink>
+                  )}
 
                   {/* ACTIVE UNDERLINE */}
                   {isActiveItem(item) && (
@@ -164,19 +246,77 @@ export default function Navbar() {
                         : "text-deep-blue"
                     }`}
                   >
-                    <NavLink
-                      to={
-                        item === "Home"
-                          ? "/"
-                          : `/${item.toLowerCase()}`
-                      }
-                      onClick={() => setIsOpen(false)}
-                      className="flex items-center justify-between w-full"
-                    >
-                      {item}
+                    {item === "About" ? (
+                      <div className="w-full">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setMobileAboutOpen((prev) => !prev)
+                          }
+                          className="flex items-center justify-between w-full"
+                        >
+                          <span>About</span>
 
-                      <IoMdArrowForward className="text-sm opacity-60" />
-                    </NavLink>
+                          <span className="text-[10px]">▼</span>
+                        </button>
+
+                        <AnimatePresence>
+                          {mobileAboutOpen && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{
+                                opacity: 1,
+                                height: "auto",
+                              }}
+                              exit={{
+                                opacity: 0,
+                                height: 0,
+                              }}
+                              transition={{ duration: 0.25 }}
+                              className="overflow-hidden pl-4 pt-4 flex flex-col gap-4"
+                            >
+                              <NavLink
+                                to="/about"
+                                onClick={() => {
+                                  setMobileAboutOpen(false);
+                                  setIsOpen(false);
+                                }}
+                                className="hover:text-primary transition"
+                              >
+                                About Us
+                              </NavLink>
+
+                              <NavLink
+                                to="/team"
+                                onClick={() => {
+                                  setMobileAboutOpen(false);
+                                  setIsOpen(false);
+                                }}
+                                className="hover:text-primary transition"
+                              >
+                                Our Team
+                              </NavLink>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    ) : (
+                      <NavLink
+                        to={
+                          item === "Home"
+                            ? "/"
+                            : `/${item
+                                .toLowerCase()
+                                .replace(/\s+/g, "-")}`
+                        }
+                        onClick={() => setIsOpen(false)}
+                        className="flex items-center justify-between w-full"
+                      >
+                        {item}
+
+                        <IoMdArrowForward className="text-sm opacity-60" />
+                      </NavLink>
+                    )}
                   </motion.li>
                 ))}
 

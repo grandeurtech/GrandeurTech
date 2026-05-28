@@ -2,6 +2,7 @@
 
 
 import { IoMdArrowRoundForward, IoMdMail } from "react-icons/io";
+import { NavLink } from "react-router-dom";
 
 import { motion, type Variants } from "framer-motion";
 const fadeUp: Variants = {
@@ -60,15 +61,16 @@ const InsightsSection = () => {
             </h2>
           </motion.div>
 
-          <motion.div
-            whileHover={{
-              x: 5,
-            }}
-            className="flex items-center gap-2 text-primary font-semibold cursor-pointer"
-          >
+          <NavLink to="/insights">
+            <motion.button
+              whileHover={{
+                x: 5,
+              }}
+              className="flex items-center gap-2 text-primary font-semibold cursor-pointer"
+            >
             View All Articles
 
-            <motion.div
+            <motion.span
               animate={{
                 x: [0, 5, 0],
               }}
@@ -78,8 +80,9 @@ const InsightsSection = () => {
               }}
             >
               <IoMdArrowRoundForward />
-            </motion.div>
-          </motion.div>
+            </motion.span>
+          </motion.button>
+          </NavLink>
         </div>
 
         {/* GRID */}

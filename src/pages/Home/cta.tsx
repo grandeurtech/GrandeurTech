@@ -1,6 +1,7 @@
 "use client";
 
 import { IoMdArrowRoundForward } from "react-icons/io";
+import { NavLink } from "react-router-dom";
 
 import { motion, type Variants } from "framer-motion";
 const fadeUp: Variants = {
@@ -69,6 +70,7 @@ const CTASection = () => {
               className="flex flex-row items-center gap-4 shrink-0"
             >
               {/* PRIMARY BUTTON */}
+              <NavLink to="/contact">
               <motion.button
                 whileHover={{
                   scale: 1.03,
@@ -93,7 +95,7 @@ const CTASection = () => {
                   <IoMdArrowRoundForward className="text-sm" />
                 </motion.span>
               </motion.button>
-
+              </NavLink>
               {/* SECONDARY BUTTON */}
               <motion.button
                 whileHover={{
