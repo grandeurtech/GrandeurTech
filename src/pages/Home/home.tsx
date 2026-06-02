@@ -116,7 +116,7 @@ const HeroSection: React.FC = () => {
               <img
                 src={HeroImage}
                 alt="Business Dashboard"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover bg-red"
               />
 
               {/* DARK OVERLAY */}

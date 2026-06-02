@@ -1,7 +1,17 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
-import { motion, type Variants, AnimatePresence } from "framer-motion";
+import React, {
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+
+import {
+  motion,
+  AnimatePresence,
+  type Variants,
+} from "framer-motion";
+
 import {
   Search,
   ArrowRight,
@@ -9,24 +19,18 @@ import {
   Plus,
 } from "lucide-react";
 
-/* ARTICLE IMAGES */
-import AutomationImg from "/resource1.jpg";
-import GrowthImg from "/resource2.jpg";
-import OperationsImg from "/resource3.jpg";
-import WorkspaceImg from "/resource4.jpg";
-import TechImg from "/resource5.png";
-import BrandingImg from "/resource3.jpg";
-
-import Cta from "./cta"
+import Cta from "./cta";
 
 type Article = {
-  id: number;
+  _id: string;
   title: string;
   description: string;
   category: string;
   image: string;
   date: string;
 };
+
+const API_URL = "https://articlebackend.onrender.com/api";
 
 const categories = [
   "All Posts",
@@ -38,62 +42,6 @@ const categories = [
   "Branding",
 ];
 
-const initialArticles: Article[] = [
-  {
-    id: 1,
-    title: "5 Tasks You Can Automate Today to Save Hours Every Week",
-    description:
-      "Manual data entry and repetitive emails are slowing your productivity. Here’s how to automate them.",
-    category: "Automation",
-    image: AutomationImg,
-    date: "May 12, 2026",
-  },
-  {
-    id: 2,
-    title: "How Data-Driven Decisions Increase Profitability",
-    description:
-      "Learn how analytics and reporting systems help businesses grow faster with clarity.",
-    category: "Business Growth",
-    image: GrowthImg,
-    date: "May 5, 2026",
-  },
-  {
-    id: 3,
-    title: "Building SOPs That Work Even Without You",
-    description:
-      "Create scalable systems and workflows that keep operations running smoothly.",
-    category: "Operations",
-    image: OperationsImg,
-    date: "April 28, 2026",
-  },
-  {
-    id: 4,
-    title: "How Smart Workspaces Improve Team Productivity",
-    description:
-      "Discover how collaborative environments improve efficiency and innovation.",
-    category: "Workspace",
-    image: WorkspaceImg,
-    date: "April 20, 2026",
-  },
-  {
-    id: 5,
-    title: "Emerging Tech Trends SMEs Should Watch",
-    description:
-      "AI, automation, and cloud systems are changing how modern businesses scale.",
-    category: "Tech",
-    image: TechImg,
-    date: "April 15, 2026",
-  },
-  {
-    id: 6,
-    title: "Branding Strategies That Make Customers Trust You",
-    description:
-      "Strong visual identity and consistency can dramatically improve conversions.",
-    category: "Branding",
-    image: BrandingImg,
-    date: "April 8, 2026",
-  },
-];
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 60 },
@@ -109,23 +57,119 @@ const fadeUp: Variants = {
   }),
 };
 
+// loginAdmin is defined inside the component so it has access to state
+
 const BusinessInsights: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState("All Posts");
-  const [search, setSearch] = useState("");
 
-  /* ADMIN STATE */
-  const [showAdmin, setShowAdmin] = useState(false);
+const [loading, setLoading] =
+  useState(true);
 
-  const [articles, setArticles] =
-    useState<Article[]>(initialArticles);
+const [showLogin, setShowLogin] =
+  useState(false);
 
-  const [newArticle, setNewArticle] = useState({
+const [isAuthenticated, setIsAuthenticated] =
+  useState(false);
+
+const [email, setEmail] =
+  useState("");
+
+const [password, setPassword] =
+  useState("");
+
+const [visibleCount, setVisibleCount] =
+  useState(6);
+
+const [activeCategory, setActiveCategory] =
+  useState("All Posts");
+
+const [search, setSearch] =
+  useState("");
+
+const [showAdmin, setShowAdmin] =
+  useState(false);
+
+const [articles, setArticles] =
+  useState<Article[]>([]);
+
+const [newArticle, setNewArticle] =
+  useState({
     title: "",
     description: "",
     category: "Automation",
     image: "",
     date: "",
   });
+
+const fetchArticles = async () => {
+  try {
+    const response = await fetch(
+      `${API_URL}/articles`
+    );
+
+    const data = await response.json();
+
+    setArticles(data);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+const loginAdmin = async () => {
+  try {
+    const response = await fetch(
+      `${API_URL}/auth/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      }
+    );
+
+    const data =
+      await response.json();
+
+    if (!response.ok) {
+      alert(data.message);
+      return;
+    }
+
+    localStorage.setItem(
+      "token",
+      data.token
+    );
+
+    setIsAuthenticated(true);
+    setShowLogin(false);
+
+    alert("Login Successful");
+  } catch (error) {
+    console.log(error);
+    alert("Login Failed");
+  }
+};
+
+
+  // Load Articles from Backend
+useEffect(() => {
+  const initialize = async () => {
+    await fetchArticles();
+
+    const token =
+      localStorage.getItem("token");
+
+    setIsAuthenticated(!!token);
+  };
+
+  initialize();
+}, []);
 
   /* FILTER ARTICLES */
   const filteredArticles = useMemo(() => {
@@ -148,38 +192,81 @@ const BusinessInsights: React.FC = () => {
   }, [activeCategory, search, articles]);
 
   /* ADD ARTICLE */
-  const handleAddArticle = () => {
-    if (
-      !newArticle.title ||
-      !newArticle.description ||
-      !newArticle.image
-    ) {
-      return;
+  const handleAddArticle =
+  async () => {
+    try {
+      const token =
+        localStorage.getItem("token");
+
+      const response =
+        await fetch(
+          `${API_URL}/articles`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type":
+                "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(
+              newArticle
+            ),
+          }
+        );
+
+      if (!response.ok) {
+        throw new Error();
+      }
+
+      fetchArticles();
+
+      setShowAdmin(false);
+
+      setNewArticle({
+        title: "",
+        description: "",
+        category:
+          "Automation",
+        image: "",
+        date: "",
+      });
+    } catch {
+      alert(
+        "Failed to create article"
+      );
     }
-
-    const article: Article = {
-      id: Date.now(),
-      title: newArticle.title,
-      description: newArticle.description,
-      category: newArticle.category,
-      image: newArticle.image,
-      date:
-        newArticle.date ||
-        new Date().toLocaleDateString(),
-    };
-
-    setArticles([article, ...articles]);
-
-    setNewArticle({
-      title: "",
-      description: "",
-      category: "Automation",
-      image: "",
-      date: "",
-    });
-
-    setShowAdmin(false);
   };
+
+   ///.......Delete Article........//// 
+  const deleteArticle =
+  async (id: string) => {
+    try {
+      const token =
+        localStorage.getItem("token");
+
+      await fetch(
+        `${API_URL}/articles/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      fetchArticles();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  if (loading) {
+  return (
+    <div className="py-20 min-h-screen text-center">
+      Loading articles...
+    </div>
+  );
+  }
 
   return (
     <>
@@ -266,9 +353,13 @@ const BusinessInsights: React.FC = () => {
 
           {/* ADMIN BUTTON */}
           <button
-            onClick={() =>
-              setShowAdmin(!showAdmin)
-            }
+            onClick={() => {
+              if (!isAuthenticated) {
+                setShowLogin(true);
+                return;
+                }
+              setShowAdmin(!showAdmin);
+            }}
             className="ml-auto bg-primary-foreground hover:bg-primary transition-all duration-300 text-white px-5 py-3 rounded-full flex items-center gap-2 text-sm font-bold"
           >
             <Plus size={16} />
@@ -402,10 +493,12 @@ const BusinessInsights: React.FC = () => {
           className="grid md:grid-cols-2 xl:grid-cols-3 gap-10 mt-20"
         >
           <AnimatePresence mode="wait">
-            {filteredArticles.map(
+            {filteredArticles
+            .slice(0, visibleCount)
+            .map(
               (article, index) => (
                 <motion.div
-                  key={article.id}
+                  key={article._id}
                   layout
                   variants={fadeUp}
                   initial="hidden"
@@ -460,12 +553,38 @@ const BusinessInsights: React.FC = () => {
                       </button>
 
                     </div>
+                    {isAuthenticated && (
+                      <button
+                        onClick={() =>
+                          deleteArticle(article._id)
+                        }
+                        className="mt-4 text-red-500 hover:text-red-700 text-sm font-bold"
+                      >
+                        Delete Article
+                      </button>
+                    )}
                   </div>
                 </motion.div>
               )
             )}
           </AnimatePresence>
         </motion.div>
+
+        {filteredArticles.length >
+          visibleCount && (
+          <div className="flex justify-center mt-16">
+            <button
+              onClick={() =>
+                setVisibleCount(
+                  (prev) => prev + 6
+                )
+              }
+              className="bg-primary text-white px-8 py-4 rounded-xl font-bold"
+            >
+              Load More Articles
+            </button>
+          </div>
+        )}
 
         {/* EMPTY STATE */}
         {filteredArticles.length === 0 && (
@@ -488,6 +607,61 @@ const BusinessInsights: React.FC = () => {
           </motion.div>
         )}
       </div>
+
+
+      <AnimatePresence>
+  {showLogin && (
+    <motion.div
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+      }}
+      exit={{
+        opacity: 0,
+      }}
+      className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-6"
+    >
+      <div className="bg-white rounded-2xl p-8 w-full max-w-md">
+        <h3 className="text-2xl font-bold">
+          Admin Login
+        </h3>
+
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) =>
+            setEmail(
+              e.target.value
+            )
+          }
+          className="w-full h-14 border mt-6 px-4 rounded-xl"
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) =>
+            setPassword(
+              e.target.value
+            )
+          }
+          className="w-full h-14 border mt-4 px-4 rounded-xl"
+        />
+
+        <button
+          onClick={loginAdmin}
+          className="w-full bg-primary text-white h-14 rounded-xl mt-6"
+        >
+          Login
+        </button>
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
     </section>
     <Cta />
     </>
