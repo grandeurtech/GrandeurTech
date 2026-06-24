@@ -4,7 +4,7 @@ import Footer from "./components/footer";
 import ScrollToTop from "./components/scrollToTop";
 import Home from "./pages/Home/home"
 import About from "./pages/About/about"
-import Team from "./pages/About/about"
+import Team from "./pages/Teams/team"
 import Services from "./pages/OurServices/services";
 import Insights from "./pages/Insights/insights";
 import WorkingSpace from "./pages/WorkingSpace/work";
