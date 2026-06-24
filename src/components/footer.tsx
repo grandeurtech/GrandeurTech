@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
               {/* SOCIALS */}
               <div className="flex items-center gap-4 mt-8">
                 <a
-                  href="https://www.instagram.com/springpethomes"
+                  href="https://www.instagram.com/grandeurtechofficial/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-blue-600 transition-all duration-300"
@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
                 </a>
 
                 <a
-                  href="https://x.com/springpethomes"
+                  href="https://www.x.com/grandeurtechofficial/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-blue-600 transition-all duration-300"
@@ -51,7 +51,7 @@ const Footer: React.FC = () => {
                 </a>
 
                 <a
-                  href="https://www.facebook.com/SpringpetHomes/"
+                  href="https://www.facebook.com/Grandeurtechofficial/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-blue-600 transition-all duration-300"
