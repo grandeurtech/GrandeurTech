@@ -5,14 +5,14 @@ const teamMembers = [
   {
     name: "Emmanuel Monyem",
     title: "CHIEF TECHNICAL OFFICER",
-    image: "/jerry.jpg",
+    image: "/jerry.jpeg",
     description:
       "Emmanuel is a Fullstack web developer that is motivated by nothing but matchless excellence. His satisfaction is achieved only when clients truly feel satisfied with their job. He is also a progressive, logical, and balanced engineer and technology enthusiast with over 10 years experience in the oil and gas and tech industry.",
   },
   {
     name: "Jeremiah Adebayo",
     title: "CHIEF OPERATION OFFICER",
-    image: "/jerry.jpg",
+    image: "/jerry.jpeg",
     description:
       "Jerry is a prolific Communications designer with an experience of over a 10 years in the world of creativity. He is also a skilled tutor with operational capabilities to oversee the affairs of the organisation. Jerry finds deep passion and satisfaction in teaching and mentoring.",
   },
