@@ -26,11 +26,11 @@ const CTASection = () => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="relative overflow-hidden rounded-[32px] bg-[#07122F]/30 border border-white/10 px-8 md:px-14 py-14 md:py-16"
+          className="relative overflow-hidden rounded-4xl bg-[#07122F]/30 border border-white/10 px-8 md:px-14 py-14 md:py-16"
         >
           {/* GRID PATTERN */}
           <div className="absolute inset-0 opacity-[0.04]">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,white_1px,transparent_1px)] bg-[length:24px_24px]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,white_1px,transparent_1px)] bg-size-[24px_24px]" />
           </div>
 
           {/* GLOW */}
