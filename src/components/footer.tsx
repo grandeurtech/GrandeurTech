@@ -160,12 +160,12 @@ const Footer: React.FC = () => {
                   <RiMapPinLine className="text-blue-500 shrink-0" />
 
                   <a
-                    href="https://www.google.com/maps"
+                    href="https://www.google.com/maps/@6.4664841,3.7087728,15.3z?entry=ttu&g_ep=EgoyMDI2MDcyNi4wIKXMDSoASAFQAw%3D%3D"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-white transition"
                   >
-                    Lagos, Nigeria
+                    B5 Selec Plaza, Gbetu Road, Lagos, Nigeria.
                   </a>
                 </li>
 

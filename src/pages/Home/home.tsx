@@ -110,17 +110,14 @@ const HeroSection: React.FC = () => {
           >
 
             {/* IMAGE CONTAINER */}
-            <div className="relative w-175 h-135.7 overflow-hidden">
+            <div className="relative w-175 h-135.7 overflow-hidden bg-transparent">
 
               {/* IMAGE */}
               <img
                 src={HeroImage}
                 alt="Business Dashboard"
-                className="w-full h-full object-cover bg-red"
+                className="w-full h-full object-cover"
               />
-
-              {/* DARK OVERLAY */}
-              <div className="absolute inset-0 bg-black/10" />
 
               {/* BLUE SHAPE */}
               <div

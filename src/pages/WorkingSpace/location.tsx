@@ -62,7 +62,7 @@ const ContactShowcase: React.FC = () => {
           <div className="bg-deep-blue px-10 md:px-14 py-14 relative overflow-hidden">
 
             {/* GLOW */}
-            <div className="absolute top-[-120px] left-[-120px] w-[250px] h-[250px] bg-primary/20 rounded-full blur-3xl" />
+            <div className="absolute -top-30 -left-30 w-62.5 h-62.5 bg-primary/20 rounded-full blur-3xl" />
 
             {/* LABEL */}
             <motion.p
@@ -83,7 +83,7 @@ const ContactShowcase: React.FC = () => {
               whileInView="show"
               viewport={{ once: true }}
               custom={2}
-              className="text-2xl md:text-3xl leading-[1] tracking-tight font-black text-white mt-6 relative z-10"
+              className="text-2xl md:text-3xl leading-none tracking-tight font-black text-white mt-6 relative z-10"
             >
               Prime Location
               <br />
@@ -115,9 +115,7 @@ const ContactShowcase: React.FC = () => {
                 </h4>
 
                 <p className="text-white/60 text-base leading-6 mt-1">
-                  123 Corporate Avenue,
-                  Victoria Island,
-                  Lagos, Nigeria
+                  B5 Selec Plaza, Gbetu Road, Lagos, Nigeria.
                 </p>
               </div>
             </motion.div>

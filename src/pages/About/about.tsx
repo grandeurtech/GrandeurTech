@@ -47,7 +47,7 @@ export default function Hero() {
 
 
         {/* BLUE GRADIENT */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#155DFC]/25 via-[#07122F]/35 to-[#07122F]/85" />
+        <div className="absolute inset-0 bg-linear-to-b from-[#155DFC]/25 via-[#07122F]/35 to-[#07122F]/85" />
 
         {/* GLOW */}
         <motion.div
@@ -60,7 +60,7 @@ export default function Hero() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-[#155DFC]/20 rounded-full blur-3xl"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-112.5 h-112.5 bg-[#155DFC]/20 rounded-full blur-3xl"
         />
 
         {/* CONTENT */}
@@ -95,7 +95,7 @@ export default function Hero() {
             initial="hidden"
             animate="show"
             custom={3}
-            className="my-5 text-base text-sm md:text-xl font-400 leading-7 text-white/90 max-w-2xl mx-auto"
+            className="my-5 text-base md:text-xl font-400 leading-7 text-white/90 max-w-2xl mx-auto"
           >
             Grandeur Tech & IT Services was founded to bridge the gap
             between complex technology and practical business needs for

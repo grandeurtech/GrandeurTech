@@ -198,9 +198,7 @@ const sendEmail = async (
                   </p>
 
                   <h3 className="text-lg font-bold text-primary-foreground mt-2">
-                    123 Corporate Avenue,
-                    Victoria Island,
-                    Lagos, Nigeria
+                    B5 Selec Plaza, Gbetu Road, Lagos, Nigeria.
                   </h3>
                 </div>
 
@@ -222,7 +220,7 @@ const sendEmail = async (
             >
 
               {/* GLOW */}
-              <div className="absolute top-[-80px] right-[-80px] w-[180px] h-[180px] bg-primary/20 rounded-full blur-3xl" />
+              <div className="absolute -top-20 -right-20 w-45 h-45 bg-primary/20 rounded-full blur-3xl" />
 
               <div className="relative z-10">
 
@@ -399,7 +397,7 @@ const sendEmail = async (
       transition={{
         duration: 0.35,
       }}
-      className="fixed top-8 right-8 z-[999] bg-white border border-black/10 shadow-[0_20px_60px_rgba(0,0,0,0.12)] rounded-2xl px-6 py-5 min-w-[320px]"
+      className="fixed top-8 right-8 z-999 bg-white border border-black/10 shadow-[0_20px_60px_rgba(0,0,0,0.12)] rounded-2xl px-6 py-5 min-w-[320px]"
     >
       <div className="flex items-start gap-4">
 
