@@ -73,34 +73,46 @@ const [uploading, setUploading] =
   useState(false);
 
   const handleUpload = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = event.target.files?.[0];
+  event: React.ChangeEvent<HTMLInputElement>
+) => {
+  const file = event.target.files?.[0];
 
-    if (!file) return;
+  if (!file) return;
 
-    if (!token) {
-      alert("Please log in again.");
-      return;
+  if (!token) {
+    alert("Please log in again.");
+    return;
+  }
+
+  try {
+    setUploading(true);
+
+    const data = await uploadImage(file, token);
+
+    console.log("Upload response:", data);
+
+    if (!data.image) {
+      throw new Error(
+        data.message || "Backend did not return an image URL"
+      );
     }
 
-    try {
-      setUploading(true);
+    setArticle((previous) => ({
+      ...previous,
+      image: data.image,
+    }));
+  } catch (error) {
+    console.error("Image upload error:", error);
 
-      const data = await uploadImage(file, token);
-
-      setArticle((previous) => ({
-        ...previous,
-        image: data.image,
-      }));
-    } catch (error) {
-      console.error(error);
-      alert("Image upload failed.");
-    } finally {
-      setUploading(false);
-    }
-  };
-
+    alert(
+      error instanceof Error
+        ? error.message
+        : "Image upload failed"
+    );
+  } finally {
+    setUploading(false);
+  }
+};
   const handleSubmit = async () => {
     if (!article.title.trim()) {
       alert("Please enter the article title.");
