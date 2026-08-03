@@ -75,11 +75,13 @@ const BusinessInsights = () => {
   const [isAuthenticated, setIsAuthenticated] =
     useState(false);
 
-  const [email, setEmail] =
+  const [email, setEmail] = 
     useState("");
 
   const [password, setPassword] =
     useState("");
+  
+  const [saving, setSaving] = useState(false);
 
   const token =
     localStorage.getItem("token") || "";
@@ -146,32 +148,42 @@ const BusinessInsights = () => {
     }
   };
 
-  const handleSaveArticle = async (
-    article: Partial<Article>
-  ) => {
-    try {
-      if (editingArticle) {
-        await updateArticle(
-          editingArticle.id,
-          article,
-          token
-        );
-      } else {
-        await createArticle(
-          article,
-          token
-        );
-      }
+const handleSaveArticle = async (
+  article: Partial<Article>
+) => {
+  try {
+    setSaving(true);
 
-      setEditingArticle(null);
-
-      setShowAdmin(false);
-
-      fetchArticles();
-    } catch (err) {
-      console.log(err);
+    if (editingArticle) {
+      await updateArticle(
+        editingArticle.id,
+        article,
+        token
+      );
+    } else {
+      await createArticle(
+        article,
+        token
+      );
     }
-  };
+
+    await fetchArticles();
+
+    setEditingArticle(null);
+    setShowAdmin(false);
+
+    alert(
+      editingArticle
+        ? "Article updated successfully"
+        : "Article published successfully"
+    );
+  } catch (error) {
+    console.error(error);
+    alert("Unable to save article");
+  } finally {
+    setSaving(false);
+  }
+};
 
   const handleDeleteArticle = async (
     id: string
@@ -332,9 +344,10 @@ const BusinessInsights = () => {
             <div className="mt-10">
 
               <AdminPanel
+                key={editingArticle?.id ?? "new-article"}
                 categories={categories}
                 token={token}
-                loading={false}
+                loading={saving}
                 editingArticle={editingArticle}
                 onSubmit={handleSaveArticle}
                 onClose={() => {
