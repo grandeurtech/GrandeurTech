@@ -89,13 +89,22 @@ const [uploading, setUploading] =
 
     const data = await uploadImage(file, token);
 
-    console.log("Upload response:", data);
+console.log("Upload response:", data);
 
-    if (!data.image) {
-      throw new Error(
-        data.message || "Backend did not return an image URL"
-      );
-    }
+const imageUrl =
+  data.image ??
+  data.url ??
+  data.imageUrl ??
+  data.secure_url;
+
+if (!imageUrl) {
+  throw new Error("Backend did not return an image URL");
+}
+
+setArticle((previous) => ({
+  ...previous,
+  image: imageUrl,
+}));
 
     setArticle((previous) => ({
       ...previous,
