@@ -15,7 +15,7 @@ const CategoryFilter = ({
   onChange,
 }: Props) => {
   return (
-    <div className="flex flex-wrap gap-4 mt-14">
+    <div className="flex flex-wrap gap-4">
       <button
         onClick={() => onChange("All Posts")}
         className={

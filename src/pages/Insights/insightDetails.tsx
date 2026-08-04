@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, CalendarDays } from "lucide-react";
+import DOMPurify from "dompurify";
 
 import {
   getArticle,
@@ -136,9 +137,38 @@ const InsightDetails = () => {
             className="mt-12 h-[320px] md:h-[520px] w-full rounded-3xl object-cover"
           />
 
-          <article className="mt-12 whitespace-pre-line text-lg leading-9 text-primary-foreground">
-            {article.content}
-          </article>
+          <article
+  className="
+    mt-12 text-lg leading-9 text-primary-foreground
+    [&_h2]:mb-4
+    [&_h2]:mt-10
+    [&_h2]:text-3xl
+    [&_h2]:font-black
+    [&_h3]:mb-3
+    [&_h3]:mt-8
+    [&_h3]:text-2xl
+    [&_h3]:font-bold
+    [&_p]:mb-6
+    [&_ul]:mb-6
+    [&_ul]:list-disc
+    [&_ul]:pl-7
+    [&_ol]:mb-6
+    [&_ol]:list-decimal
+    [&_ol]:pl-7
+    [&_li]:mb-2
+    [&_blockquote]:my-8
+    [&_blockquote]:border-l-4
+    [&_blockquote]:border-primary
+    [&_blockquote]:pl-5
+    [&_blockquote]:italic
+    [&_strong]:font-black
+  "
+  dangerouslySetInnerHTML={{
+    __html: DOMPurify.sanitize(
+      article.content
+    ),
+  }}
+/>
         </div>
       </section>
 

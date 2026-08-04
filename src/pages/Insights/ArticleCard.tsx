@@ -60,15 +60,15 @@ const ArticleCard = ({
           {article.category.name}
         </p>
 
-        <h3 className="mt-4 text-2xl font-black text-primary-foreground">
+        <h3 className="mt-1 text-2xl font-black text-primary-foreground">
           {article.title}
         </h3>
 
-        <p className="mt-5 text-text leading-7">
+        <p className="mt-2 text-text leading-7">
           {article.description}
         </p>
 
-        <div className="flex items-center justify-between mt-8 border-t pt-6">
+        <div className="flex items-center justify-between border-color-grey mt-8 border-t pt-6">
 
           <div className="flex items-center gap-2 text-sm text-text">
 
@@ -91,32 +91,32 @@ const ArticleCard = ({
 
         {isAuthenticated && (
 
-          <div className="flex flex-wrap gap-3 mt-6">
+          <div className="flex flex-wrap gap-5 mt-6">
 
             <button
               onClick={() => onEdit(article)}
-              className="text-blue-600 font-bold"
+              className="text-blue-600 font-medium"
             >
               Edit
             </button>
 
             <button
               onClick={() => onDelete(article.id)}
-              className="text-red-600 font-bold"
+              className="text-red-600 font-medium"
             >
               Delete
             </button>
 
             <button
               onClick={() => onToggleFeatured(article.id)}
-              className="text-yellow-600 font-bold"
+              className="text-yellow-600 font-medium"
             >
               {article.featured ? "Unfeature" : "Feature"}
             </button>
 
             <button
               onClick={() => onTogglePublished(article.id)}
-              className="text-green-600 font-bold"
+              className="text-green-600 font-medium"
             >
               {article.published ? "Unpublish" : "Publish"}
             </button>

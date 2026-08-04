@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { uploadImage } from "../../services/uploadService";
+import RichTextEditor from "./RichTextEditor";
 
 interface Category {
   id: string;
@@ -49,33 +50,26 @@ const AdminPanel = ({
   onSubmit,
   onClose,
 }: Props) => {
-  const getInitialArticle =
-    (): ArticleFormData => {
-      if (!editingArticle) {
-        return {
-          ...emptyArticle,
-        };
-      }
-
+  const getInitialArticle = (): ArticleFormData => {
+    if (!editingArticle) {
       return {
-        title: editingArticle.title,
-        description:
-          editingArticle.description,
-        content: editingArticle.content,
-        image: editingArticle.image,
-        categoryId:
-          editingArticle.categoryId,
-        featured:
-          editingArticle.featured,
-        published:
-          editingArticle.published,
+        ...emptyArticle,
       };
+    }
+
+    return {
+      title: editingArticle.title,
+      description: editingArticle.description,
+      content: editingArticle.content,
+      image: editingArticle.image,
+      categoryId: editingArticle.categoryId,
+      featured: editingArticle.featured,
+      published: editingArticle.published,
     };
+  };
 
   const [article, setArticle] =
-    useState<ArticleFormData>(
-      getInitialArticle
-    );
+    useState<ArticleFormData>(getInitialArticle);
 
   const [uploading, setUploading] =
     useState(false);
@@ -83,8 +77,7 @@ const AdminPanel = ({
   const handleImageUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const file =
-      event.target.files?.[0];
+    const file = event.target.files?.[0];
 
     if (!file) return;
 
@@ -98,21 +91,15 @@ const AdminPanel = ({
     try {
       setUploading(true);
 
-      const imageUrl =
-        await uploadImage(
-          file,
-          token
-        );
+      const imageUrl = await uploadImage(
+        file,
+        token
+      );
 
       setArticle((previous) => ({
         ...previous,
         image: imageUrl,
       }));
-
-      console.log(
-        "Stored image URL:",
-        imageUrl
-      );
     } catch (error) {
       console.error(
         "Image upload failed:",
@@ -129,34 +116,39 @@ const AdminPanel = ({
     }
   };
 
+  const getPlainText = (html: string) => {
+    const temporaryElement =
+      document.createElement("div");
+
+    temporaryElement.innerHTML = html;
+
+    return (
+      temporaryElement.textContent ??
+      temporaryElement.innerText ??
+      ""
+    ).trim();
+  };
+
   const handleSubmit = async () => {
     if (!article.title.trim()) {
-      alert(
-        "Please enter the article title."
-      );
+      alert("Please enter the article title.");
       return;
     }
 
-    if (
-      !article.description.trim()
-    ) {
+    if (!article.description.trim()) {
       alert(
         "Please enter the article description."
       );
       return;
     }
 
-    if (!article.content.trim()) {
-      alert(
-        "Please enter the article content."
-      );
+    if (!getPlainText(article.content)) {
+      alert("Please enter the article content.");
       return;
     }
 
     if (!article.categoryId) {
-      alert(
-        "Please select a category."
-      );
+      alert("Please select a category.");
       return;
     }
 
@@ -177,10 +169,7 @@ const AdminPanel = ({
     await onSubmit({
       ...article,
       title: article.title.trim(),
-      description:
-        article.description.trim(),
-      content:
-        article.content.trim(),
+      description: article.description.trim(),
     });
   };
 
@@ -198,29 +187,21 @@ const AdminPanel = ({
           placeholder="Article title"
           value={article.title}
           onChange={(event) =>
-            setArticle(
-              (previous) => ({
-                ...previous,
-                title:
-                  event.target.value,
-              })
-            )
+            setArticle((previous) => ({
+              ...previous,
+              title: event.target.value,
+            }))
           }
           className="h-14 w-full rounded-xl border border-black/10 px-4 outline-none"
         />
 
         <select
-          value={
-            article.categoryId
-          }
+          value={article.categoryId}
           onChange={(event) =>
-            setArticle(
-              (previous) => ({
-                ...previous,
-                categoryId:
-                  event.target.value,
-              })
-            )
+            setArticle((previous) => ({
+              ...previous,
+              categoryId: event.target.value,
+            }))
           }
           className="h-14 w-full rounded-xl border border-black/10 px-4 outline-none"
         >
@@ -228,50 +209,48 @@ const AdminPanel = ({
             Select category
           </option>
 
-          {categories.map(
-            (category) => (
-              <option
-                key={category.id}
-                value={category.id}
-              >
-                {category.name}
-              </option>
-            )
-          )}
+          {categories.map((category) => (
+            <option
+              key={category.id}
+              value={category.id}
+            >
+              {category.name}
+            </option>
+          ))}
         </select>
       </div>
 
       <textarea
         placeholder="Article description"
-        value={
-          article.description
-        }
+        value={article.description}
         onChange={(event) =>
-          setArticle(
-            (previous) => ({
-              ...previous,
-              description:
-                event.target.value,
-            })
-          )
+          setArticle((previous) => ({
+            ...previous,
+            description: event.target.value,
+          }))
         }
         className="mt-5 h-32 w-full resize-none rounded-xl border border-black/10 p-4 outline-none"
       />
 
-      <textarea
-        placeholder="Article content"
-        value={article.content}
-        onChange={(event) =>
-          setArticle(
-            (previous) => ({
+      {/* RICH-TEXT CONTENT EDITOR */}
+
+      <div className="mt-5">
+        <label className="mb-2 block font-semibold text-primary-foreground">
+          Article Content
+        </label>
+
+        <RichTextEditor
+          value={article.content}
+          onChange={(content) =>
+            setArticle((previous) => ({
               ...previous,
-              content:
-                event.target.value,
-            })
-          )
-        }
-        className="mt-5 h-64 w-full resize-y rounded-xl border border-black/10 p-4 outline-none"
-      />
+              content,
+            }))
+          }
+        />
+      </div>
+
+      {/* IMAGE UPLOAD */}
 
       <div className="mt-5 rounded-xl border border-black/10 p-5">
         <label className="block font-semibold text-primary-foreground">
@@ -281,12 +260,8 @@ const AdminPanel = ({
         <input
           type="file"
           accept="image/*"
-          onChange={
-            handleImageUpload
-          }
-          disabled={
-            uploading || loading
-          }
+          onChange={handleImageUpload}
+          disabled={uploading || loading}
           className="mt-3 block w-full"
         />
 
@@ -296,13 +271,11 @@ const AdminPanel = ({
           </p>
         )}
 
-        {!uploading &&
-          article.image && (
-            <p className="mt-3 text-sm text-green-600">
-              Image uploaded
-              successfully.
-            </p>
-          )}
+        {!uploading && article.image && (
+          <p className="mt-3 text-sm text-green-600">
+            Image uploaded successfully.
+          </p>
+        )}
 
         {article.image && (
           <img
@@ -313,22 +286,18 @@ const AdminPanel = ({
         )}
       </div>
 
+      {/* ARTICLE SETTINGS */}
+
       <div className="mt-6 flex flex-wrap gap-5">
         <label className="flex items-center gap-2">
           <input
             type="checkbox"
-            checked={
-              article.featured
-            }
+            checked={article.featured}
             onChange={(event) =>
-              setArticle(
-                (previous) => ({
-                  ...previous,
-                  featured:
-                    event.target
-                      .checked,
-                })
-              )
+              setArticle((previous) => ({
+                ...previous,
+                featured: event.target.checked,
+              }))
             }
           />
 
@@ -338,18 +307,12 @@ const AdminPanel = ({
         <label className="flex items-center gap-2">
           <input
             type="checkbox"
-            checked={
-              article.published
-            }
+            checked={article.published}
             onChange={(event) =>
-              setArticle(
-                (previous) => ({
-                  ...previous,
-                  published:
-                    event.target
-                      .checked,
-                })
-              )
+              setArticle((previous) => ({
+                ...previous,
+                published: event.target.checked,
+              }))
             }
           />
 
@@ -357,12 +320,12 @@ const AdminPanel = ({
         </label>
       </div>
 
+      {/* ACTIONS */}
+
       <div className="mt-8 flex flex-wrap gap-4">
         <button
           type="button"
-          disabled={
-            loading || uploading
-          }
+          disabled={loading || uploading}
           onClick={handleSubmit}
           className="rounded-xl bg-primary px-8 py-4 font-bold text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
@@ -375,9 +338,7 @@ const AdminPanel = ({
 
         <button
           type="button"
-          disabled={
-            loading || uploading
-          }
+          disabled={loading || uploading}
           onClick={onClose}
           className="rounded-xl border px-6 py-4 font-semibold disabled:cursor-not-allowed disabled:opacity-60"
         >
