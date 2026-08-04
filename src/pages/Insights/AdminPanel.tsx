@@ -25,7 +25,9 @@ interface Props {
   token: string;
   loading: boolean;
   editingArticle: EditingArticle | null;
-  onSubmit: (article: ArticleFormData) => void | Promise<void>;
+  onSubmit: (
+    article: ArticleFormData
+  ) => void | Promise<void>;
   onClose: () => void;
 }
 
@@ -43,222 +45,326 @@ const AdminPanel = ({
   categories,
   token,
   loading,
+  editingArticle,
   onSubmit,
   onClose,
-  editingArticle,
 }: Props) => {
-  
-  const getInitialArticle = (): ArticleFormData => {
-  if (!editingArticle) {
-    return {
-      ...emptyArticle,
+  const getInitialArticle =
+    (): ArticleFormData => {
+      if (!editingArticle) {
+        return {
+          ...emptyArticle,
+        };
+      }
+
+      return {
+        title: editingArticle.title,
+        description:
+          editingArticle.description,
+        content: editingArticle.content,
+        image: editingArticle.image,
+        categoryId:
+          editingArticle.categoryId,
+        featured:
+          editingArticle.featured,
+        published:
+          editingArticle.published,
+      };
     };
-  }
 
-  return {
-    title: editingArticle.title,
-    description: editingArticle.description,
-    content: editingArticle.content,
-    image: editingArticle.image,
-    categoryId: editingArticle.categoryId,
-    featured: editingArticle.featured,
-    published: editingArticle.published,
-  };
-};
-
-const [article, setArticle] =
-  useState<ArticleFormData>(getInitialArticle);
-
-const [uploading, setUploading] =
-  useState(false);
-
-  const handleUpload = async (
-  event: React.ChangeEvent<HTMLInputElement>
-) => {
-  const file = event.target.files?.[0];
-
-  if (!file) return;
-
-  if (!token) {
-    alert("Please log in again.");
-    return;
-  }
-
-  try {
-    setUploading(true);
-
-    const data = await uploadImage(file, token);
-
-console.log("Upload response:", data);
-
-const imageUrl =
-  data.image ??
-  data.url ??
-  data.imageUrl ??
-  data.secure_url;
-
-if (!imageUrl) {
-  throw new Error("Backend did not return an image URL");
-}
-
-setArticle((previous) => ({
-  ...previous,
-  image: imageUrl,
-}));
-
-    setArticle((previous) => ({
-      ...previous,
-      image: data.image,
-    }));
-  } catch (error) {
-    console.error("Image upload error:", error);
-
-    alert(
-      error instanceof Error
-        ? error.message
-        : "Image upload failed"
+  const [article, setArticle] =
+    useState<ArticleFormData>(
+      getInitialArticle
     );
-  } finally {
-    setUploading(false);
-  }
-};
-  const handleSubmit = async () => {
-    if (!article.title.trim()) {
-      alert("Please enter the article title.");
+
+  const [uploading, setUploading] =
+    useState(false);
+
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file =
+      event.target.files?.[0];
+
+    if (!file) return;
+
+    if (!token) {
+      alert(
+        "Your session has expired. Please log in again."
+      );
       return;
     }
 
-    if (!article.description.trim()) {
-      alert("Please enter the article description.");
+    try {
+      setUploading(true);
+
+      const imageUrl =
+        await uploadImage(
+          file,
+          token
+        );
+
+      setArticle((previous) => ({
+        ...previous,
+        image: imageUrl,
+      }));
+
+      console.log(
+        "Stored image URL:",
+        imageUrl
+      );
+    } catch (error) {
+      console.error(
+        "Image upload failed:",
+        error
+      );
+
+      alert(
+        error instanceof Error
+          ? error.message
+          : "Image upload failed"
+      );
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (!article.title.trim()) {
+      alert(
+        "Please enter the article title."
+      );
+      return;
+    }
+
+    if (
+      !article.description.trim()
+    ) {
+      alert(
+        "Please enter the article description."
+      );
       return;
     }
 
     if (!article.content.trim()) {
-      alert("Please enter the article content.");
+      alert(
+        "Please enter the article content."
+      );
       return;
     }
 
     if (!article.categoryId) {
-      alert("Please select a category.");
-      return;
-    }
-
-    if (!article.image) {
-      alert("Please upload an article image.");
+      alert(
+        "Please select a category."
+      );
       return;
     }
 
     if (uploading) {
-      alert("Please wait for the image upload to finish.");
+      alert(
+        "Please wait for the image upload to finish."
+      );
+      return;
+    }
+
+    if (!article.image) {
+      alert(
+        "Please upload an article image."
+      );
       return;
     }
 
     await onSubmit({
       ...article,
       title: article.title.trim(),
-      description: article.description.trim(),
-      content: article.content.trim(),
+      description:
+        article.description.trim(),
+      content:
+        article.content.trim(),
     });
   };
 
   return (
-    <div className="bg-white rounded-2xl p-8 shadow mt-12">
-      <h2 className="text-2xl font-bold mb-8">
+    <div className="mt-12 rounded-2xl bg-white p-8 shadow">
+      <h2 className="mb-8 text-2xl font-bold text-primary-foreground">
         {editingArticle
           ? "Update Article"
           : "Create Article"}
       </h2>
 
-      <input
-        type="text"
-        placeholder="Title"
-        value={article.title}
-        onChange={(event) =>
-          setArticle((previous) => ({
-            ...previous,
-            title: event.target.value,
-          }))
+      <div className="grid gap-5 md:grid-cols-2">
+        <input
+          type="text"
+          placeholder="Article title"
+          value={article.title}
+          onChange={(event) =>
+            setArticle(
+              (previous) => ({
+                ...previous,
+                title:
+                  event.target.value,
+              })
+            )
+          }
+          className="h-14 w-full rounded-xl border border-black/10 px-4 outline-none"
+        />
+
+        <select
+          value={
+            article.categoryId
+          }
+          onChange={(event) =>
+            setArticle(
+              (previous) => ({
+                ...previous,
+                categoryId:
+                  event.target.value,
+              })
+            )
+          }
+          className="h-14 w-full rounded-xl border border-black/10 px-4 outline-none"
+        >
+          <option value="">
+            Select category
+          </option>
+
+          {categories.map(
+            (category) => (
+              <option
+                key={category.id}
+                value={category.id}
+              >
+                {category.name}
+              </option>
+            )
+          )}
+        </select>
+      </div>
+
+      <textarea
+        placeholder="Article description"
+        value={
+          article.description
         }
-        className="border rounded-xl h-14 px-4 w-full mb-4"
+        onChange={(event) =>
+          setArticle(
+            (previous) => ({
+              ...previous,
+              description:
+                event.target.value,
+            })
+          )
+        }
+        className="mt-5 h-32 w-full resize-none rounded-xl border border-black/10 p-4 outline-none"
       />
 
       <textarea
-        placeholder="Description"
-        value={article.description}
-        onChange={(event) =>
-          setArticle((previous) => ({
-            ...previous,
-            description: event.target.value,
-          }))
-        }
-        className="border rounded-xl p-4 w-full mb-4"
-      />
-
-      <textarea
-        placeholder="Content"
+        placeholder="Article content"
         value={article.content}
         onChange={(event) =>
-          setArticle((previous) => ({
-            ...previous,
-            content: event.target.value,
-          }))
+          setArticle(
+            (previous) => ({
+              ...previous,
+              content:
+                event.target.value,
+            })
+          )
         }
-        className="border rounded-xl p-4 w-full mb-4 h-44"
+        className="mt-5 h-64 w-full resize-y rounded-xl border border-black/10 p-4 outline-none"
       />
 
-      <select
-        value={article.categoryId}
-        onChange={(event) =>
-          setArticle((previous) => ({
-            ...previous,
-            categoryId: event.target.value,
-          }))
-        }
-        className="border rounded-xl h-14 px-4 w-full mb-4"
-      >
-        <option value="">
-          Select Category
-        </option>
+      <div className="mt-5 rounded-xl border border-black/10 p-5">
+        <label className="block font-semibold text-primary-foreground">
+          Article Image
+        </label>
 
-        {categories.map((category) => (
-          <option
-            key={category.id}
-            value={category.id}
-          >
-            {category.name}
-          </option>
-        ))}
-      </select>
-
-      <div className="mb-6">
         <input
           type="file"
           accept="image/*"
-          onChange={handleUpload}
-          disabled={uploading || loading}
+          onChange={
+            handleImageUpload
+          }
+          disabled={
+            uploading || loading
+          }
+          className="mt-3 block w-full"
         />
 
         {uploading && (
-          <p className="mt-2 text-sm text-primary">
+          <p className="mt-3 text-sm text-primary">
             Uploading image...
           </p>
         )}
+
+        {!uploading &&
+          article.image && (
+            <p className="mt-3 text-sm text-green-600">
+              Image uploaded
+              successfully.
+            </p>
+          )}
+
+        {article.image && (
+          <img
+            src={article.image}
+            alt="Article preview"
+            className="mt-4 h-40 w-full max-w-sm rounded-xl object-cover"
+          />
+        )}
       </div>
 
-      {article.image && (
-        <img
-          src={article.image}
-          alt="Article preview"
-          className="w-48 h-32 object-cover rounded-xl mb-6"
-        />
-      )}
+      <div className="mt-6 flex flex-wrap gap-5">
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={
+              article.featured
+            }
+            onChange={(event) =>
+              setArticle(
+                (previous) => ({
+                  ...previous,
+                  featured:
+                    event.target
+                      .checked,
+                })
+              )
+            }
+          />
 
-      <div className="flex flex-wrap gap-4">
+          Featured article
+        </label>
+
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={
+              article.published
+            }
+            onChange={(event) =>
+              setArticle(
+                (previous) => ({
+                  ...previous,
+                  published:
+                    event.target
+                      .checked,
+                })
+              )
+            }
+          />
+
+          Publish immediately
+        </label>
+      </div>
+
+      <div className="mt-8 flex flex-wrap gap-4">
         <button
           type="button"
-          disabled={loading || uploading}
+          disabled={
+            loading || uploading
+          }
           onClick={handleSubmit}
-          className="bg-primary text-white px-8 py-4 rounded-xl disabled:opacity-60 disabled:cursor-not-allowed"
+          className="rounded-xl bg-primary px-8 py-4 font-bold text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
           {loading
             ? "Saving..."
@@ -269,9 +375,11 @@ setArticle((previous) => ({
 
         <button
           type="button"
-          disabled={loading || uploading}
+          disabled={
+            loading || uploading
+          }
           onClick={onClose}
-          className="border rounded-xl px-6 py-4 disabled:opacity-60 disabled:cursor-not-allowed"
+          className="rounded-xl border px-6 py-4 font-semibold disabled:cursor-not-allowed disabled:opacity-60"
         >
           Cancel
         </button>
