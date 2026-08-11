@@ -236,13 +236,16 @@ const sendEmail = async (
                   Mon–Fri 9am–5pm.
                 </p>
 
-                <motion.button
+                <motion.a
                   whileHover={{
                     scale: 1.03,
                   }}
                   whileTap={{
                     scale: 0.96,
                   }}
+                  href="https://wa.me/message/CM6JDEN3GVBDC"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="mt-8 w-full h-15 rounded-2xl bg-[#25D366] hover:bg-[#1EBE5D] transition-all duration-300 text-white font-bold flex items-center justify-center gap-3 shadow-[0_15px_40px_rgba(37,211,102,0.35)]"
                 >
 
@@ -250,7 +253,7 @@ const sendEmail = async (
 
                   Chat on WhatsApp
 
-                </motion.button>
+                </motion.a>
 
               </div>
 
