@@ -10,6 +10,8 @@ import Insights from "./pages/Insights/insights";
 import InsightDetails from "./pages/Insights/insightDetails";
 import WorkingSpace from "./pages/WorkingSpace/work";
 import Contact from "./pages/Contact/contact";
+import SMEManager from "./pages/SMEManager";
+
 
 
 function App() {
@@ -27,6 +29,7 @@ function App() {
         <Route path="/insights/:slug" element={<InsightDetails />} />
         <Route path="/co-working-space" element={<WorkingSpace />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/sme-manager" element={<SMEManager />} />
       </Routes>
 
       <Footer />
