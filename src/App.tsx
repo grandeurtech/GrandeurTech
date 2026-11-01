@@ -11,7 +11,7 @@ import InsightDetails from "./pages/Insights/insightDetails";
 import WorkingSpace from "./pages/WorkingSpace/work";
 import Contact from "./pages/Contact/contact";
 import SMEManager from "./pages/SMEManager";
-import PilotApplication from "./pages/PilotApplication";
+import PilotApplication from "./pages/PilotApplication/index";
 
 
 
