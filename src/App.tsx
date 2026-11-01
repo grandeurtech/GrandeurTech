@@ -10,8 +10,9 @@ import Insights from "./pages/Insights/insights";
 import InsightDetails from "./pages/Insights/insightDetails";
 import WorkingSpace from "./pages/WorkingSpace/work";
 import Contact from "./pages/Contact/contact";
-import SMEManager from "./pages/SMEManager";
-import PilotApplication from "./pages/PilotApplication/index";
+import SMEManager from "./SMEManager/index";
+import PilotApplication from "./PilotApplication/index";
+
 
 
 
