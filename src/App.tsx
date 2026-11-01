@@ -11,6 +11,7 @@ import InsightDetails from "./pages/Insights/insightDetails";
 import WorkingSpace from "./pages/WorkingSpace/work";
 import Contact from "./pages/Contact/contact";
 import SMEManager from "./pages/SMEManager";
+import PilotApplication from "./pages/PilotApplication";
 
 
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/co-working-space" element={<WorkingSpace />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/sme-manager" element={<SMEManager />} />
+        <Route path="/sme-manager/apply" element={<PilotApplication />} />
       </Routes>
 
       <Footer />
