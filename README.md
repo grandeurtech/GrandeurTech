@@ -70,4 +70,6 @@ export default defineConfig([
     },
   },
 ])
+
+Founding 50 pilot application — preview deployment check.
 ```
