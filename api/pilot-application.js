@@ -71,11 +71,18 @@ export default async function handler(req, res) {
     );
 
     if (!response.ok) {
-      console.error("Supabase submission failed:", response.status);
-      return res.status(500).json({
-        error: "Unable to save your application. Please try again."
-      });
-    }
+  const errorDetails = await response.text();
+
+  console.error(
+    "Supabase submission failed:",
+    response.status,
+    errorDetails
+  );
+
+  return res.status(500).json({
+    error: "Unable to save your application. Please try again."
+  });
+}
 
     return res.status(201).json({
       success: true,
