@@ -44,8 +44,8 @@ export default function AdminLogin() {
         );
       }
 
-      setMessage('Login successful. Administrator verified.');
-      // Dashboard navigation will be added next.
+      window.location.replace('/sme-manager/admin');
+      
     } catch (err) {
       setError(
         err instanceof Error ? err.message : 'Login failed.'
