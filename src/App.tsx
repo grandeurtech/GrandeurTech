@@ -15,6 +15,7 @@ import Contact from "./pages/Contact/contact";
 import SMEManager from "./SMEManager/index";
 import PilotApplication from "./PilotApplication/index";
 import AdminLogin from "./pages/AdminLogin/index";
+import AdminDashboard from "./pages/AdminDashboard/index";
 
 function AppContent() {
   const location = useLocation();
@@ -60,6 +61,11 @@ function AppContent() {
         <Route
           path="/sme-manager/admin/login"
           element={<AdminLogin />}
+        />
+
+        <Route
+          path="/sme-manager/admin"
+          element={<AdminDashboard />}
         />
       </Routes>
 
